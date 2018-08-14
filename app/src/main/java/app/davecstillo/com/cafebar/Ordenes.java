@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -16,7 +18,10 @@ public class Ordenes extends BaseFragment {
 
 
     boolean VariasCuentas;
-    TextView texto;
+    Button addThing;
+    View f;
+
+    boolean prodVisible = false;
 
     public Ordenes() {
         // Required empty public constructor
@@ -33,13 +38,29 @@ public class Ordenes extends BaseFragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_ordenes, container, false);
 
-        texto = view.findViewById(R.id.texto1);
+        addThing = view.findViewById(R.id.addthing);
+        f = view.findViewById(R.id.prdFragment);
+        //f.setVisibility(View.GONE);
 
         if(VariasCuentas){
-            texto.setText("Se van a pedir cuentas separadas");
+            Toast.makeText(getContext(),"Se van a pedir cuentas separadas",Toast.LENGTH_LONG).show();
         }else{
-            texto.setText("Se va a pedir en una sola cuenta");
+            Toast.makeText(getContext(),"Se va a pedir en una sola cuenta",Toast.LENGTH_LONG).show();
         }
+
+        addThing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if(!prodVisible) {
+                   f.setVisibility(View.VISIBLE);
+                   prodVisible = true;
+               }else {
+                   f.setVisibility(View.GONE);
+                   prodVisible = false;
+               }
+            }
+        });
+
 
         return view;
     }
