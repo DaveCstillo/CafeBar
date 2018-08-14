@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -21,6 +20,7 @@ public class Ordenes extends BaseFragment {
     Button addThing;
     View f;
 
+    Productos productos;
     boolean prodVisible = false;
 
     public Ordenes() {
@@ -38,9 +38,11 @@ public class Ordenes extends BaseFragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_ordenes, container, false);
 
+
         addThing = view.findViewById(R.id.addthing);
         f = view.findViewById(R.id.prdFragment);
-        //f.setVisibility(View.GONE);
+        f.setVisibility(View.GONE);
+
 
         if(VariasCuentas){
             Toast.makeText(getContext(),"Se van a pedir cuentas separadas",Toast.LENGTH_LONG).show();
@@ -53,9 +55,11 @@ public class Ordenes extends BaseFragment {
             public void onClick(View view) {
                if(!prodVisible) {
                    f.setVisibility(View.VISIBLE);
+                   Toast.makeText(getContext(),"Alv  :v",Toast.LENGTH_LONG).show();
                    prodVisible = true;
                }else {
                    f.setVisibility(View.GONE);
+                   Toast.makeText(getContext(),"Alv  v:",Toast.LENGTH_LONG).show();
                    prodVisible = false;
                }
             }

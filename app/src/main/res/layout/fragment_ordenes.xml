@@ -20,16 +20,18 @@
             android:id="@+id/addthing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Agregar"
+            android:drawableLeft="@drawable/ic_plus"/>
 
     </LinearLayout>
 
-    <include
+    <fragment
         android:id="@+id/prdFragment"
-        layout="@layout/fragment_productos"
+        android:name="app.davecstillo.com.cafebar.Productos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_productos" />
 
 
 </LinearLayout>
