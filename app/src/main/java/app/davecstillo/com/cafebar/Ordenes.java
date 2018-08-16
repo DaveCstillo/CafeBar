@@ -40,7 +40,7 @@ public class Ordenes extends BaseFragment {
 
 
         addThing = view.findViewById(R.id.addthing);
-        f = view.findViewById(R.id.prdFragment);
+        f = view.findViewById(R.id.prdListFragment);
         f.setVisibility(View.GONE);
 
 

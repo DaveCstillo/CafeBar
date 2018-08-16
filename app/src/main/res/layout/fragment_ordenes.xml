@@ -20,18 +20,18 @@
             android:id="@+id/addthing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar"
-            android:drawableLeft="@drawable/ic_plus"/>
+            android:drawableLeft="@drawable/ic_plus"
+            android:text="Agregar" />
 
     </LinearLayout>
 
     <fragment
-        android:id="@+id/prdFragment"
-        android:name="app.davecstillo.com.cafebar.Productos"
+        android:id="@+id/prdListFragment"
+        android:name="app.davecstillo.com.cafebar.ProductItemFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:layout="@layout/fragment_productos" />
+        tools:layout="@layout/fragment_productitem_list" />
 
 
 </LinearLayout>

@@ -12,10 +12,11 @@
     android:horizontalSpacing="10dp"
     android:stretchMode="columnWidth"
     android:gravity="center"
+    android:scrollbars="vertical"
 
     >
 
-    <!-- TODO: Update blank fragment layout -->
+
 
 
 </GridView>

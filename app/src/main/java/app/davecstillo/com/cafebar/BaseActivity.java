@@ -4,9 +4,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import app.davecstillo.com.cafebar.Content.ProductContent;
+import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.R;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, ProductFragment.OnListFragmentInteractionListener{
 
 
     public void changeFragment(BaseFragment f){
@@ -22,6 +24,16 @@ public class BaseActivity extends AppCompatActivity {
             manager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         trans.commit();
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(ProductContent.ProdListItem item) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(foodItem item) {
 
     }
 }
