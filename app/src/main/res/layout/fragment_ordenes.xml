@@ -34,4 +34,7 @@
         tools:layout="@layout/fragment_productitem_list" />
 
 
+
+
+
 </LinearLayout>

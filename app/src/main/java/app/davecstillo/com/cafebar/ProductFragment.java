@@ -28,6 +28,8 @@ public class ProductFragment extends BaseFragment {
     private int mColumnCount = 3;
     private OnListFragmentInteractionListener mListener;
 
+    private foodInfo food;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -35,6 +37,11 @@ public class ProductFragment extends BaseFragment {
     public ProductFragment() {
     }
 
+
+    public void setItems(foodInfo items){
+        this.food = items;
+
+    }
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ProductFragment newInstance(int columnCount) {
@@ -54,6 +61,10 @@ public class ProductFragment extends BaseFragment {
         }
     }
 
+    public foodInfo getFood(){
+        return food;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +79,13 @@ public class ProductFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+//            food.addItem(food.createFoodInfo(1,"Comida 1",R.drawable.comida_1));
+//            food.addItem(food.createFoodInfo(2,"Comida 2",R.drawable.comida_2));
+//            food.addItem(food.createFoodInfo(3,"Comida 3",R.drawable.comida_3));
+//            food.addItem(food.createFoodInfo(4,"Comida 4",R.drawable.comida_4));
+//            food.addItem(food.createFoodInfo(5,"Comida 5",R.drawable.comida_5));
+//            food.addItem(food.createFoodInfo(6,"Comida 6",R.drawable.comida_6));
+//
             recyclerView.setAdapter(new ProductRecyclerViewAdapter(foodInfo.ITEMS, mListener));
         }
         return view;
@@ -103,6 +121,6 @@ public class ProductFragment extends BaseFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(foodItem item);
+        void onListFragmentInteraction(foodInfo.foodItem item);
     }
 }

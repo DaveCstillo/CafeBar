@@ -1,12 +1,14 @@
 package app.davecstillo.com.cafebar;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.davecstillo.com.cafebar.ProductItemFragment.OnListFragmentInteractionListener;
 import app.davecstillo.com.cafebar.Content.ProductContent.ProdListItem;
@@ -23,6 +25,10 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private final List<ProdListItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
+
+    private boolean contentVisibility = false;
+    private Context context;
+
     public ProductItemRecyclerViewAdapter(List<ProdListItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -30,7 +36,9 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+
+        context = parent.getContext();
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.fragment_productitem, parent, false);
         return new ViewHolder(view);
     }
@@ -39,17 +47,30 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mButtonView.setText(mValues.get(position).nombre);
+//        holder.mView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (null != mListener) {
+//                    // Notify the active callbacks interface (the activity, if the
+//                    // fragment is attached to one) that an item has been selected.
+//                    mListener.onListFragmentInteraction(holder.mItem);
+//                }
+//            }
+//        });
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+        holder.mButtonView.setOnClickListener(view1 -> {
+            if(contentVisibility){
+                holder.mContentView.setVisibility(View.GONE);
+                Toast.makeText(context,"LOL",Toast.LENGTH_LONG).show();
+                contentVisibility = false;
+            }else{
+                holder.mContentView.setVisibility(View.VISIBLE);
+                Toast.makeText(context,"LEL",Toast.LENGTH_LONG).show();
+                contentVisibility = true;
             }
+
         });
+
     }
 
     @Override
@@ -62,7 +83,7 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
         public final Button mButtonView;
         public final View mContentView;
         public ProdListItem mItem;
-        private boolean contentVisibility = false;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -70,19 +91,7 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
             mButtonView = view.findViewById(R.id.btnprodlist);
             mContentView = view.findViewById(R.id.prdFragment);
             mContentView.setVisibility(View.GONE);
-            mButtonView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(contentVisibility){
-                        mContentView.setVisibility(View.GONE);
-                        contentVisibility = false;
-                    }else{
-                        mContentView.setVisibility(View.VISIBLE);
-                        contentVisibility = true;
-                    }
 
-                }
-            });
         }
 
         @Override

@@ -35,7 +35,7 @@ public class ProductItemFragment extends BaseFragment {
 
 
     private ProductContent listProd;
-    private Productos contentProd;
+    private ProductFragment contentProd;
     private foodInfo fInfo;
 
     /**
@@ -63,7 +63,7 @@ public class ProductItemFragment extends BaseFragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
+        contentProd = new ProductFragment();
         listProd = new ProductContent();
         fInfo = new foodInfo();
     }
@@ -85,11 +85,12 @@ public class ProductItemFragment extends BaseFragment {
 
             //callList();
 
-            addFood();
 
-            listProd.addItem(listProd.createProdList(0,"Comida",fInfo));
-            listProd.addItem(listProd.createProdList(1,"Bebidas Frias",fInfo));
-            listProd.addItem(listProd.createProdList(2,"Bebidas Calientes",fInfo));
+
+            listProd.addItem(listProd.createProdList(0,"Entradas",addEntrada(new foodInfo())));
+            listProd.addItem(listProd.createProdList(1,"Comida", addFood(new foodInfo())));
+            listProd.addItem(listProd.createProdList(2,"Bebidas Frias", addCDrinks(new foodInfo())));
+            listProd.addItem(listProd.createProdList(3,"Bebidas Calientes", addHDrinks(new foodInfo())));
 
 
             recyclerView.setAdapter(new ProductItemRecyclerViewAdapter(listProd.ITEMS, mListener));
@@ -98,13 +99,41 @@ public class ProductItemFragment extends BaseFragment {
     }
 
 
-    public void addFood(){
-        fInfo.addItem(fInfo.createFoodInfo(1,"Comida 1",R.drawable.comida_1));
-        fInfo.addItem(fInfo.createFoodInfo(2,"Comida 2",R.drawable.comida_2));
-        fInfo.addItem(fInfo.createFoodInfo(3,"Comida 3",R.drawable.comida_3));
-        fInfo.addItem(fInfo.createFoodInfo(4,"Comida 4",R.drawable.comida_4));
-        fInfo.addItem(fInfo.createFoodInfo(5,"Comida 5",R.drawable.comida_5));
-        fInfo.addItem(fInfo.createFoodInfo(6,"Comida 6",R.drawable.comida_6));
+    public foodInfo addFood(foodInfo food){
+        food.addItem(food.createFoodInfo(0,"Comida 1",R.drawable.comida_1));
+        food.addItem(food.createFoodInfo(1,"Comida 2",R.drawable.comida_2));
+        food.addItem(food.createFoodInfo(2,"Comida 3",R.drawable.comida_3));
+        food.addItem(food.createFoodInfo(3,"Comida 4",R.drawable.comida_4));
+        food.addItem(food.createFoodInfo(4,"Comida 5",R.drawable.comida_5));
+        food.addItem(food.createFoodInfo(5,"Comida 6",R.drawable.comida_6));
+        return food;
+    }
+    public foodInfo addCDrinks(foodInfo food){
+        food.addItem(food.createFoodInfo(0,"Bebida Fria 1",R.drawable.absolut_melon_mojito));
+        food.addItem(food.createFoodInfo(1,"Bebida Fria 2",R.drawable.alexander));
+        food.addItem(food.createFoodInfo(2,"Bebida Fria 3",R.drawable.blue_magic));
+        food.addItem(food.createFoodInfo(3,"Bebida Fria 4",R.drawable.blowjob_shots));
+        food.addItem(food.createFoodInfo(4,"Bebida Fria 5",R.drawable.adios_motherfcker));
+        food.addItem(food.createFoodInfo(5,"Bebida Fria 6",R.drawable.akuaku));
+        return food;
+    }
+    public foodInfo addHDrinks(foodInfo food){
+        food.addItem(food.createFoodInfo(0,"Bebida Caliente 1",R.drawable.cafe_1));
+        food.addItem(food.createFoodInfo(1,"Bebida Caliente 2",R.drawable.cafe_2));
+        food.addItem(food.createFoodInfo(2,"Bebida Caliente 3",R.drawable.cafe_3));
+        food.addItem(food.createFoodInfo(3,"Bebida Caliente 4",R.drawable.tea_1));
+        food.addItem(food.createFoodInfo(4,"Bebida Caliente 5",R.drawable.tea_alcohol));
+        food.addItem(food.createFoodInfo(5,"Bebida Caliente 6",R.drawable.chocolate_1));
+        return food;
+    }
+    public foodInfo addEntrada(foodInfo food){
+        food.addItem(food.createFoodInfo(0,"Entrada 1",R.drawable.entrada_1));
+        food.addItem(food.createFoodInfo(1,"Entrada 2",R.drawable.entrada_2));
+        food.addItem(food.createFoodInfo(2,"Entrada 3",R.drawable.entrada_3));
+        food.addItem(food.createFoodInfo(3,"Entrada 4",R.drawable.entrada_4));
+        food.addItem(food.createFoodInfo(4,"Entrada 5",R.drawable.entrada_5));
+        food.addItem(food.createFoodInfo(5,"Entrada 6",R.drawable.entrada_6));
+        return food;
     }
 
     public void callList(){

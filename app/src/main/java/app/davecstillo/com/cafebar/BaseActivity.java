@@ -33,7 +33,9 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
     }
 
     @Override
-    public void onListFragmentInteraction(foodItem item) {
+    public void onListFragmentInteraction(foodInfo.foodItem item) {
+
+
 
     }
 }

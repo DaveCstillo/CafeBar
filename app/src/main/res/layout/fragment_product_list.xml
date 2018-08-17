@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ProductFragment"
-    tools:listitem="@layout/fragment_product" />
+    tools:listitem="@layout/fragment_product"
+    android:scrollbars="vertical"/>
