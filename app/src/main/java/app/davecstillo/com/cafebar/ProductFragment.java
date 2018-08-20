@@ -38,9 +38,9 @@ public class ProductFragment extends BaseFragment {
     }
 
 
-    public void setItems(foodInfo items){
+    public foodInfo setItems(foodInfo items){
         this.food = items;
-
+        return this.food;
     }
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -79,16 +79,21 @@ public class ProductFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-//            food.addItem(food.createFoodInfo(1,"Comida 1",R.drawable.comida_1));
-//            food.addItem(food.createFoodInfo(2,"Comida 2",R.drawable.comida_2));
-//            food.addItem(food.createFoodInfo(3,"Comida 3",R.drawable.comida_3));
-//            food.addItem(food.createFoodInfo(4,"Comida 4",R.drawable.comida_4));
-//            food.addItem(food.createFoodInfo(5,"Comida 5",R.drawable.comida_5));
-//            food.addItem(food.createFoodInfo(6,"Comida 6",R.drawable.comida_6));
-//
-            recyclerView.setAdapter(new ProductRecyclerViewAdapter(foodInfo.ITEMS, mListener));
+
+            //food = addCDrinks(food);
+            recyclerView.setAdapter(new ProductRecyclerViewAdapter(food.ITEMS, mListener));
         }
         return view;
+    }
+
+    public foodInfo addCDrinks(foodInfo food){
+        food.addItem(food.createFoodInfo(1,"Bebida Fria 1",R.drawable.absolut_melon_mojito));
+        food.addItem(food.createFoodInfo(2,"Bebida Fria 2",R.drawable.alexander));
+        food.addItem(food.createFoodInfo(3,"Bebida Fria 3",R.drawable.blue_magic));
+        food.addItem(food.createFoodInfo(4,"Bebida Fria 4",R.drawable.blowjob_shots));
+        food.addItem(food.createFoodInfo(5,"Bebida Fria 5",R.drawable.adios_motherfcker));
+        food.addItem(food.createFoodInfo(6,"Bebida Fria 6",R.drawable.akuaku));
+        return food;
     }
 
 

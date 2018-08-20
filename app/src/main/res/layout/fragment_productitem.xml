@@ -13,21 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!--<View-->
-    <!--class="android.support.v7.widget.GridLayout"-->
-    <!--android:id="@+id/prdFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:scrollbars="vertical"-->
-        <!--tools:layout="@layout/fragment_product_list"/>-->
-
 
     <fragment
-    android:id="@+id/prdFragment"
-    android:name="app.davecstillo.com.cafebar.ProductFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout="@layout/fragment_product_list" />
+        android:id="@+id/prdFragment"
+        android:name="app.davecstillo.com.cafebar.ProductFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_product_list" />
 
 
 </LinearLayout>

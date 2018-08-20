@@ -30,8 +30,8 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private Context context;
 
     public ProductItemRecyclerViewAdapter(List<ProdListItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+        this.mValues = items;
+        this.mListener = listener;
     }
 
     @Override
@@ -47,16 +47,16 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mButtonView.setText(mValues.get(position).nombre);
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (null != mListener) {
-//                    // Notify the active callbacks interface (the activity, if the
-//                    // fragment is attached to one) that an item has been selected.
-//                    mListener.onListFragmentInteraction(holder.mItem);
-//                }
-//            }
-//        });
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onListFragmentInteraction(holder.mItem);
+                }
+            }
+        });
 
         holder.mButtonView.setOnClickListener(view1 -> {
             if(contentVisibility){
@@ -72,6 +72,7 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
         });
 
     }
+
 
     @Override
     public int getItemCount() {
