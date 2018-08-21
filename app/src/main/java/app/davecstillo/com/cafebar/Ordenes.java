@@ -20,7 +20,6 @@ public class Ordenes extends BaseFragment {
     Button addThing;
     View f;
 
-    Productos productos;
     boolean prodVisible = false;
 
     public Ordenes() {
@@ -40,7 +39,7 @@ public class Ordenes extends BaseFragment {
 
 
         addThing = view.findViewById(R.id.addthing);
-        f = view.findViewById(R.id.prdListFragment);
+        f = view.findViewById(R.id.prodItem);
         f.setVisibility(View.GONE);
 
 

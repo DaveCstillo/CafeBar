@@ -1,44 +1,34 @@
 package app.davecstillo.com.cafebar;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import app.davecstillo.com.cafebar.ProductItemFragment.OnListFragmentInteractionListener;
-import app.davecstillo.com.cafebar.Content.ProductContent.ProdListItem;
+import app.davecstillo.com.cafebar.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link ProdListItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<ProductItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<ProdListItem> mValues;
+    private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-
-    private boolean contentVisibility = false;
-    private Context context;
-
-    public ProductItemRecyclerViewAdapter(List<ProdListItem> items, OnListFragmentInteractionListener listener) {
-        this.mValues = items;
-        this.mListener = listener;
+    public ProductItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+        mValues = items;
+        mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        context = parent.getContext();
-        View view = LayoutInflater.from(context)
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_productitem, parent, false);
         return new ViewHolder(view);
     }
@@ -46,7 +36,9 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mButtonView.setText(mValues.get(position).nombre);
+        holder.mIdView.setText(mValues.get(position).id);
+        holder.mContentView.setText(mValues.get(position).content);
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,22 +49,7 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 }
             }
         });
-
-        holder.mButtonView.setOnClickListener(view1 -> {
-            if(contentVisibility){
-                holder.mContentView.setVisibility(View.GONE);
-                Toast.makeText(context,"LOL",Toast.LENGTH_LONG).show();
-                contentVisibility = false;
-            }else{
-                holder.mContentView.setVisibility(View.VISIBLE);
-                Toast.makeText(context,"LEL",Toast.LENGTH_LONG).show();
-                contentVisibility = true;
-            }
-
-        });
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -81,23 +58,20 @@ public class ProductItemRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final Button mButtonView;
-        public final View mContentView;
-        public ProdListItem mItem;
-
+        public final TextView mIdView;
+        public final TextView mContentView;
+        public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mButtonView = view.findViewById(R.id.btnprodlist);
-            mContentView = view.findViewById(R.id.prdFragment);
-            mContentView.setVisibility(View.GONE);
-
+            mIdView = (TextView) view.findViewById(R.id.prodImg);
+            mContentView = (TextView) view.findViewById(R.id.prodContent);
         }
 
         @Override
         public String toString() {
-            return "";
+            return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
 }

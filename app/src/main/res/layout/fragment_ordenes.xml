@@ -26,15 +26,12 @@
     </LinearLayout>
 
     <fragment
-        android:id="@+id/prdListFragment"
-        android:name="app.davecstillo.com.cafebar.ProductItemFragment"
+        android:id="@+id/prodItem"
+        android:name="app.davecstillo.com.cafebar.foodClassFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:layout="@layout/fragment_productitem_list" />
-
-
-
+        tools:layout="@layout/fragment_foodclass_list" />
 
 
 </LinearLayout>

@@ -9,12 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import com.google.gson.JsonElement;
-
-import app.davecstillo.com.cafebar.Content.ProductContent;
-import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.dummy.DummyContent;
 import app.davecstillo.com.cafebar.dummy.DummyContent.DummyItem;
 
@@ -26,17 +21,13 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ProductItemFragment extends BaseFragment {
+public class ProductItemFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int mColumnCount = 3;
     private OnListFragmentInteractionListener mListener;
-
-
-    private ProductContent listProd;
-    private foodInfo fInfo;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,7 +43,6 @@ public class ProductItemFragment extends BaseFragment {
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -63,15 +53,12 @@ public class ProductItemFragment extends BaseFragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        listProd = new ProductContent();
-        fInfo = new foodInfo();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_productitem_list, container, false);
-
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -82,77 +69,9 @@ public class ProductItemFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
-            //showMenu();
-            //callList();
-
-
-
-            listProd.addItem(listProd.createProdList(1,"Entradas", new ProductFragment().setItems(addEntrada(new foodInfo()))));
-
-//            listProd.addItem(listProd.createProdList(2,"Comida", new ProductFragment().setItems(addFood(new foodInfo()))));
-//            listProd.addItem(listProd.createProdList(3,"Bebidas Frias", new ProductFragment().setItems(addCDrinks(new foodInfo()))));
-//            listProd.addItem(listProd.createProdList(4,"Bebidas Calientes", new ProductFragment().setItems(addHDrinks(new foodInfo()))));
-
-
-            recyclerView.setAdapter(new ProductItemRecyclerViewAdapter(listProd.ITEMS, mListener));
+            recyclerView.setAdapter(new ProductItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
-    }
-
-
-    public void showMenu(){
-        ProductFragment fragment = new ProductFragment();
-        getChildFragmentManager().beginTransaction().replace(R.id.prdFragment,fragment).commit();
-
-    }
-
-    public foodInfo addFood(foodInfo food){
-        food.addItem(food.createFoodInfo(1,"Comida 1",R.drawable.comida_1));
-        food.addItem(food.createFoodInfo(2,"Comida 2",R.drawable.comida_2));
-        food.addItem(food.createFoodInfo(3,"Comida 3",R.drawable.comida_3));
-        food.addItem(food.createFoodInfo(4,"Comida 4",R.drawable.comida_4));
-        food.addItem(food.createFoodInfo(5,"Comida 5",R.drawable.comida_5));
-        food.addItem(food.createFoodInfo(6,"Comida 6",R.drawable.comida_6));
-        return food;
-    }
-    public foodInfo addCDrinks(foodInfo food){
-        food.addItem(food.createFoodInfo(1,"Bebida Fria 1",R.drawable.absolut_melon_mojito));
-        food.addItem(food.createFoodInfo(2,"Bebida Fria 2",R.drawable.alexander));
-        food.addItem(food.createFoodInfo(3,"Bebida Fria 3",R.drawable.blue_magic));
-        food.addItem(food.createFoodInfo(4,"Bebida Fria 4",R.drawable.blowjob_shots));
-        food.addItem(food.createFoodInfo(5,"Bebida Fria 5",R.drawable.adios_motherfcker));
-        food.addItem(food.createFoodInfo(6,"Bebida Fria 6",R.drawable.akuaku));
-        return food;
-    }
-    public foodInfo addHDrinks(foodInfo food){
-        food.addItem(food.createFoodInfo(1,"Bebida Caliente 1",R.drawable.cafe_1));
-        food.addItem(food.createFoodInfo(2,"Bebida Caliente 2",R.drawable.cafe_2));
-        food.addItem(food.createFoodInfo(3,"Bebida Caliente 3",R.drawable.cafe_3));
-        food.addItem(food.createFoodInfo(4,"Bebida Caliente 4",R.drawable.tea_1));
-        food.addItem(food.createFoodInfo(5,"Bebida Caliente 5",R.drawable.tea_alcohol));
-        food.addItem(food.createFoodInfo(6,"Bebida Caliente 6",R.drawable.chocolate_1));
-        return food;
-    }
-    public foodInfo addEntrada(foodInfo food){
-        food.addItem(food.createFoodInfo(1,"Entrada 1",R.drawable.entrada_1));
-        food.addItem(food.createFoodInfo(2,"Entrada 2",R.drawable.entrada_2));
-        food.addItem(food.createFoodInfo(3,"Entrada 3",R.drawable.entrada_3));
-        food.addItem(food.createFoodInfo(4,"Entrada 4",R.drawable.entrada_4));
-        food.addItem(food.createFoodInfo(5,"Entrada 5",R.drawable.entrada_5));
-        food.addItem(food.createFoodInfo(6,"Entrada 6",R.drawable.entrada_6));
-        return food;
-    }
-
-    public void callList(){
-        new BackgroundTask<JsonElement>(()->httpHandler.instance.getJson("LOL"), (json,exception)->{
-
-            if(exception==null){
-
-            }else{
-
-            }
-        }).execute();
     }
 
 
@@ -185,6 +104,6 @@ public class ProductItemFragment extends BaseFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(ProductContent.ProdListItem item);
+        void onListFragmentInteraction(DummyItem item);
     }
 }

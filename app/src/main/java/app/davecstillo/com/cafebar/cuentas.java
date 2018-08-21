@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import app.davecstillo.com.cafebar.Content.ProductContent;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,11 +32,18 @@ public class cuentas extends BaseFragment {
 
         una = view.findViewById(R.id.Cunasola);
         varias = view.findViewById(R.id.Cseparadas);
+        Ordenes f = new Ordenes();
+
+        ProductContent pContent = new ProductContent();
+
+        pContent.addItem(pContent.createProdList(1,"Comida"));
+        pContent.addItem(pContent.createProdList(2,"Entradas"));
+        pContent.addItem(pContent.createProdList(3,"Bebidas Frias"));
+        pContent.addItem(pContent.createProdList(4,"Bebidas Calientes"));
 
         una.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Ordenes f = new Ordenes();
                 f.setVariasCuentas(false);
                 getBaseActivity().changeFragment(f);
             }
@@ -42,7 +51,6 @@ public class cuentas extends BaseFragment {
         varias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Ordenes f = new Ordenes();
                 f.setVariasCuentas(true);
                 getBaseActivity().changeFragment(f);
             }

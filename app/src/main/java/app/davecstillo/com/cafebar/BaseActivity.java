@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import app.davecstillo.com.cafebar.Content.ProductContent;
 import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.R;
+import app.davecstillo.com.cafebar.dummy.DummyContent;
 
-public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, ProductFragment.OnListFragmentInteractionListener{
+public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, foodClassFragment.OnListFragmentInteractionListener {
 
 
     public void changeFragment(BaseFragment f){
@@ -28,14 +29,13 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
     }
 
     @Override
-    public void onListFragmentInteraction(ProductContent.ProdListItem item) {
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 
+
     @Override
-    public void onListFragmentInteraction(foodInfo.foodItem item) {
-
-
+    public void onListFragmentInteraction(ProductContent.ProdListItem item) {
 
     }
 }

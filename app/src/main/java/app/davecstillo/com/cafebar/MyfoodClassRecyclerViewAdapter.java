@@ -1,28 +1,32 @@
 package app.davecstillo.com.cafebar;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import app.davecstillo.com.cafebar.ProductFragment.OnListFragmentInteractionListener;
-import app.davecstillo.com.cafebar.Content.foodInfo.foodItem;
+import app.davecstillo.com.cafebar.Content.ProductContent;
+import app.davecstillo.com.cafebar.foodClassFragment.OnListFragmentInteractionListener;
+import app.davecstillo.com.cafebar.Content.ProductContent.ProdListItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link foodItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link ProdListItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
+public class MyfoodClassRecyclerViewAdapter extends RecyclerView.Adapter<MyfoodClassRecyclerViewAdapter.ViewHolder> {
 
-    private final List<foodItem> mValues;
+    private final List<ProdListItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public ProductRecyclerViewAdapter(List<foodItem> items, OnListFragmentInteractionListener listener) {
+    FragmentManager manager;
+
+    public MyfoodClassRecyclerViewAdapter(List<ProdListItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,15 +34,14 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_product, parent, false);
+                .inflate(R.layout.fragment_foodclass, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mImgView.setImageResource(mValues.get(position).imgID);
-        holder.mContentView.setText(mValues.get(position).name);
+        holder.mBtnView.setText(mValues.get(position).nombre);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +53,20 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                 }
             }
         });
+
+        holder.mBtnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                foodListDialogFragment foodDialog = foodListDialogFragment.newInstance(4);
+                foodDialog.onCreateDialog(bundle);
+
+            }
+        });
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -59,20 +75,18 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final ImageView mImgView;
-        public final TextView mContentView;
-        public foodItem mItem;
+        public final TextView mBtnView;
+        public ProductContent.ProdListItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mImgView = view.findViewById(R.id.productImage);
-            mContentView = view.findViewById(R.id.productText);
+            mBtnView = view.findViewById(R.id.btnFood);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + mBtnView.getText();
         }
     }
 }
