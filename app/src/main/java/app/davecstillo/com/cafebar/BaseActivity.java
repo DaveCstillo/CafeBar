@@ -12,12 +12,12 @@ import app.davecstillo.com.cafebar.dummy.DummyContent;
 public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, foodClassFragment.OnListFragmentInteractionListener {
 
 
+    public FragmentManager manager = getSupportFragmentManager();
     public void changeFragment(BaseFragment f){
         changeFragment(f,true);
     }
 
     public void changeFragment(BaseFragment f, boolean backstack){
-        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction().replace(R.id.fragmentContenido,f);
         if(backstack)
             trans.addToBackStack(null);
@@ -28,6 +28,10 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
 
     }
 
+    public FragmentManager getManager() {
+        return manager;
+    }
+
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
@@ -36,6 +40,11 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
 
     @Override
     public void onListFragmentInteraction(ProductContent.ProdListItem item) {
+        foodListDialogFragment foodDialog = new foodListDialogFragment();
+        foodDialog.setDialogName(item.nombre);
+     //   FragmentTransaction trans = manager.beginTransaction().add(foodDialog,item.nombre);
+        foodDialog.show(manager,item.nombre);
+       // trans.commit();
 
     }
 }

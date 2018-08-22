@@ -9,10 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.List;
+
+import app.davecstillo.com.cafebar.Content.foodInfo;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -27,6 +32,8 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
     private Listener mListener;
+    private String dialogName;
+
 
     // TODO: Customize parameters
     public static foodListDialogFragment newInstance(int itemCount) {
@@ -47,11 +54,9 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_food_list_dialog, null);
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Comida").setView(v);
+        builder.setTitle(dialogName).setView(v);
 
         return builder.create();
     }
@@ -61,24 +66,38 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new foodAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
+
+        foodInfo food = new foodInfo();
+
+        food.addItem(food.createFoodInfo(0,"Mojito",R.drawable.absolut_melon_mojito));
+        food.addItem(food.createFoodInfo(1,"Adios MotherFucker",R.drawable.adios_motherfcker));
+        food.addItem(food.createFoodInfo(2,"Blue Magic",R.drawable.blue_magic));
+        food.addItem(food.createFoodInfo(3,"Alexander",R.drawable.alexander));
+
+
+
+        recyclerView.setAdapter(new foodAdapter(food.ITEMS));
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        final Fragment parent = getParentFragment();
-        if (parent != null) {
-            mListener = (Listener) parent;
-        } else {
-            mListener = (Listener) context;
-        }
+//        final Fragment parent = getParentFragment();
+//        if (parent != null) {
+//            mListener = (Listener) parent;
+//        } else {
+//            mListener = (Listener) context;
+//        }
     }
 
     @Override
     public void onDetach() {
         mListener = null;
         super.onDetach();
+    }
+
+    public void setDialogName(String name){
+        this.dialogName = name;
     }
 
     public interface Listener {
@@ -88,17 +107,18 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView text;
+        public foodInfo.foodItem mItem;
 
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             // TODO: Customize the item layout
             super(inflater.inflate(R.layout.fragment_food_list_dialog_item, parent, false));
-            text = (TextView) itemView.findViewById(R.id.text);
+            text = itemView.findViewById(R.id.text);
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
                         mListener.onfoodClicked(getAdapterPosition());
-                        dismiss();
+                        Log.d("onfoodClick","Se ha presionado "+text.getText()+" ");
                     }
                 }
             });
@@ -108,10 +128,10 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
 
     private class foodAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private final int mItemCount;
+        private final List<foodInfo.foodItem> mValues;
 
-        foodAdapter(int itemCount) {
-            mItemCount = itemCount;
+        foodAdapter(List<foodInfo.foodItem> items) {
+            mValues = items;
         }
 
         @Override
@@ -121,12 +141,13 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.valueOf(position));
+            holder.mItem = mValues.get(position);
+            holder.text.setText(mValues.get(position).name);
         }
 
         @Override
         public int getItemCount() {
-            return mItemCount;
+            return mValues.size();
         }
 
     }

@@ -2,6 +2,8 @@ package app.davecstillo.com.cafebar;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,6 @@ public class MyfoodClassRecyclerViewAdapter extends RecyclerView.Adapter<MyfoodC
     private final List<ProdListItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    FragmentManager manager;
 
     public MyfoodClassRecyclerViewAdapter(List<ProdListItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -43,7 +44,7 @@ public class MyfoodClassRecyclerViewAdapter extends RecyclerView.Adapter<MyfoodC
         holder.mItem = mValues.get(position);
         holder.mBtnView.setText(mValues.get(position).nombre);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -54,15 +55,6 @@ public class MyfoodClassRecyclerViewAdapter extends RecyclerView.Adapter<MyfoodC
             }
         });
 
-        holder.mBtnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                foodListDialogFragment foodDialog = foodListDialogFragment.newInstance(4);
-                foodDialog.onCreateDialog(bundle);
-
-            }
-        });
     }
 
 
@@ -83,6 +75,8 @@ public class MyfoodClassRecyclerViewAdapter extends RecyclerView.Adapter<MyfoodC
             mView = view;
             mBtnView = view.findViewById(R.id.btnFood);
         }
+
+
 
         @Override
         public String toString() {
