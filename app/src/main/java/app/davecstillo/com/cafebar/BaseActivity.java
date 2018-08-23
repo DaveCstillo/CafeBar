@@ -9,7 +9,7 @@ import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.R;
 import app.davecstillo.com.cafebar.dummy.DummyContent;
 
-public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, foodClassFragment.OnListFragmentInteractionListener {
+public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, foodClassFragment.OnListFragmentInteractionListener, foodListDialogFragment.OnListFragmentInteractionListener {
 
 
     public FragmentManager manager = getSupportFragmentManager();
@@ -45,6 +45,12 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
      //   FragmentTransaction trans = manager.beginTransaction().add(foodDialog,item.nombre);
         foodDialog.show(manager,item.nombre);
        // trans.commit();
+
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(foodInfo.foodItem item) {
 
     }
 }

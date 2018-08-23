@@ -1,11 +1,10 @@
 package app.davecstillo.com.cafebar;
 
+import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,11 +26,11 @@ import app.davecstillo.com.cafebar.Content.foodInfo;
  * </pre>
  * <p>You activity (or fragment) needs to implement {@link foodListDialogFragment.Listener}.</p>
  */
-public class foodListDialogFragment extends BottomSheetDialogFragment {
+public class foodListDialogFragment extends DialogFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
-    private Listener mListener;
+    private OnListFragmentInteractionListener mListener;
     private String dialogName;
 
 
@@ -48,7 +47,24 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_food_list_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_food_list_dialog, container, false);
+
+        final RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        foodInfo food = new foodInfo();
+
+        food.addItem(food.createFoodInfo(0,"Mojito",R.drawable.absolut_melon_mojito));
+        food.addItem(food.createFoodInfo(1,"Adios MotherFucker",R.drawable.adios_motherfcker));
+        food.addItem(food.createFoodInfo(2,"Blue Magic",R.drawable.blue_magic));
+        food.addItem(food.createFoodInfo(3,"Alexander",R.drawable.alexander));
+
+
+
+        recyclerView.setAdapter(new foodAdapter(food.ITEMS));
+
+
+        return view;
     }
 
     @Override
@@ -61,22 +77,10 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
         return builder.create();
     }
 
-
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        final RecyclerView recyclerView = (RecyclerView) view;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        foodInfo food = new foodInfo();
-
-        food.addItem(food.createFoodInfo(0,"Mojito",R.drawable.absolut_melon_mojito));
-        food.addItem(food.createFoodInfo(1,"Adios MotherFucker",R.drawable.adios_motherfcker));
-        food.addItem(food.createFoodInfo(2,"Blue Magic",R.drawable.blue_magic));
-        food.addItem(food.createFoodInfo(3,"Alexander",R.drawable.alexander));
-
-
-
-        recyclerView.setAdapter(new foodAdapter(food.ITEMS));
     }
 
     @Override
@@ -88,6 +92,16 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
 //        } else {
 //            mListener = (Listener) context;
 //        }
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
+    }
+    public interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(foodInfo.foodItem item);
     }
 
     @Override
@@ -113,15 +127,7 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
             // TODO: Customize the item layout
             super(inflater.inflate(R.layout.fragment_food_list_dialog_item, parent, false));
             text = itemView.findViewById(R.id.text);
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onfoodClicked(getAdapterPosition());
-                        Log.d("onfoodClick","Se ha presionado "+text.getText()+" ");
-                    }
-                }
-            });
+
         }
 
     }
@@ -143,6 +149,16 @@ public class foodListDialogFragment extends BottomSheetDialogFragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.text.setText(mValues.get(position).name);
+
+            holder.text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onListFragmentInteraction(holder.mItem);
+                        Log.d("onfoodClick","Se ha presionado "+holder.text.getText()+" ");
+                    }
+                }
+            });
         }
 
         @Override
