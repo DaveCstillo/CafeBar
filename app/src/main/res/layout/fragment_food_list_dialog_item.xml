@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="160dp"
-    android:layout_height="180dp"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     android:layout_marginBottom="2dp"
     android:layout_marginTop="2dp"
     android:orientation="vertical">
@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/imgFoodView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical|center_horizontal|center"
         android:layout_margin="6dp"
         android:contentDescription="Imagen de Comida"
@@ -22,11 +22,16 @@
         android:id="@+id/exText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgFoodView"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:padding="5dp"
+        android:shadowColor="@color/naranja"
+        android:shadowDx="2"
+        android:shadowDy="1"
+        android:shadowRadius="3"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/blanco"
         tools:text="Hello" />
 
 
-</LinearLayout>
+</RelativeLayout>

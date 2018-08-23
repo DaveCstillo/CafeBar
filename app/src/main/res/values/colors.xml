@@ -2,10 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="blanco">#ffffff</color>
+    <color name="negro">#000000</color>
 
     <color name="addBackBtn">#65AA86</color>
     <color name="pedidoBack">#EFBB44</color>
     <color name="categoryBack">#24AED3</color>
+    <color name="naranja">#ff9e00</color>
+    <color name="amarillo_chinto">#FBFF00</color>
+    <color name="emetra">#59FF00</color>
 
 </resources>
