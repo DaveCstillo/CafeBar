@@ -1,15 +1,23 @@
 package app.davecstillo.com.cafebar;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
+import app.davecstillo.com.cafebar.Content.cuentaInfo;
 import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.R;
 import app.davecstillo.com.cafebar.dummy.DummyContent;
 
-public class BaseActivity extends AppCompatActivity implements ProductItemFragment.OnListFragmentInteractionListener, foodClassFragment.OnListFragmentInteractionListener, foodListDialogFragment.OnListFragmentInteractionListener {
+public class BaseActivity extends AppCompatActivity implements
+        ProductItemFragment.OnListFragmentInteractionListener,
+        foodClassFragment.OnListFragmentInteractionListener,
+        foodListDialogFragment.OnListFragmentInteractionListener,
+        pedidosFragment.OnListFragmentInteractionListener {
 
 
     public FragmentManager manager = getSupportFragmentManager();
@@ -50,7 +58,17 @@ public class BaseActivity extends AppCompatActivity implements ProductItemFragme
 
 
     @Override
-    public void onListFragmentInteraction(foodInfo.foodItem item) {
+    public void onListFragmentInteraction(foodInfo.foodItem item, DialogFragment dialog) {
+
+        Log.d("foodItem", item.name);
+        Toast.makeText(getApplicationContext(),"foodItem: "+item.name, Toast.LENGTH_LONG).show();
+        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name));
+        dialog.dismiss();
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(cuentaInfo.cuentaItem item) {
 
     }
 }

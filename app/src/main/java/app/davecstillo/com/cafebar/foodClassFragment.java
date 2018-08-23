@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
-import app.davecstillo.com.cafebar.dummy.DummyContent;
-import app.davecstillo.com.cafebar.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
@@ -30,8 +28,6 @@ public class foodClassFragment extends BaseFragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
-    private Button selectBtn;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

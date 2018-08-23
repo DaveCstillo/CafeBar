@@ -5,7 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingBottom="@dimen/list_item_spacing_half"
-    android:paddingTop="@dimen/list_item_spacing_half"
     tools:context=".foodListDialogFragment"
     tools:listitem="@layout/fragment_food_list_dialog_item" />

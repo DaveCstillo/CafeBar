@@ -11,16 +11,18 @@ public class foodInfo {
     public static final Map<String, foodItem> ITEM_MAP = new HashMap<String, foodItem>();
 
     static{
-
+//        for (int i = 1; i <= 10; i++) {
+//            addItem(createFoodInfo(i,String.valueOf(i),i));
+//        }
     }
 
-    public void addItem(foodItem item){
+    public static  void addItem(foodItem item){
         ITEMS.add(item);
         ITEM_MAP.put(String.valueOf(item.id), item);
     }
 
-    public foodItem createFoodInfo( int position, String nombre, int imgId){
-        return new foodItem(position, nombre,imgId);
+    public static foodItem createFoodInfo( int id, String nombre, int imgId){
+        return new foodItem(id, nombre,imgId);
     }
 
 
