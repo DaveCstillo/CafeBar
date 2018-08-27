@@ -11,8 +11,13 @@ public class Images
 
     public static void init()
     {
-        Images.imagesApi = new httpHandler("");
+        Images.imagesApi = new httpHandler("https://cafebarsite.000webhostapp.com/Productos/");
     }
+
+    public static void newApi(String extencion){
+        Images.imagesApi = new httpHandler(("https://cafebarsite.000webhostapp.com/Productos/"+extencion+"/"));
+    }
+
 
     public static Bitmap get(String name) throws Exception
     {

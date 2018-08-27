@@ -18,7 +18,7 @@
         android:scrollbars="vertical">
 
         <fragment
-            android:id="@+id/fragment"
+            android:id="@+id/pedidosList"
             android:name="app.davecstillo.com.cafebar.pedidosFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,9 +29,9 @@
             android:id="@+id/addthing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/addBackBtn"
             android:drawableLeft="@drawable/ic_plus"
-            android:text="Agregar"
-            android:background="@color/addBackBtn"/>
+            android:text="Agregar" />
 
     </LinearLayout>
 
@@ -39,7 +39,7 @@
         android:id="@+id/prodItem"
         android:name="app.davecstillo.com.cafebar.foodClassFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_weight="1"
         tools:layout="@layout/fragment_foodclass_list" />
 

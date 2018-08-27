@@ -1,11 +1,17 @@
 package app.davecstillo.com.cafebar;
 
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
 import app.davecstillo.com.cafebar.Content.cuentaInfo;
@@ -18,6 +24,11 @@ public class BaseActivity extends AppCompatActivity implements
         foodClassFragment.OnListFragmentInteractionListener,
         foodListDialogFragment.OnListFragmentInteractionListener,
         pedidosFragment.OnListFragmentInteractionListener {
+
+
+    public boolean traido = false;
+    foodListDialogFragment foodDialog;
+    Fragment pedidos;
 
 
     public FragmentManager manager = getSupportFragmentManager();
@@ -45,24 +56,22 @@ public class BaseActivity extends AppCompatActivity implements
 
     }
 
-
     @Override
     public void onListFragmentInteraction(ProductContent.ProdListItem item) {
-        foodListDialogFragment foodDialog = new foodListDialogFragment();
+        foodDialog = new foodListDialogFragment();
         foodDialog.setDialogName(item.nombre);
-     //   FragmentTransaction trans = manager.beginTransaction().add(foodDialog,item.nombre);
+        //   FragmentTransaction trans = manager.beginTransaction().add(foodDialog,item.nombre);
+
         foodDialog.show(manager,item.nombre);
-       // trans.commit();
 
     }
-
 
     @Override
     public void onListFragmentInteraction(foodInfo.foodItem item, DialogFragment dialog) {
 
         Log.d("foodItem", item.name);
         Toast.makeText(getApplicationContext(),"foodItem: "+item.name, Toast.LENGTH_LONG).show();
-        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name));
+        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name,1));
         dialog.dismiss();
     }
 
@@ -70,5 +79,7 @@ public class BaseActivity extends AppCompatActivity implements
     @Override
     public void onListFragmentInteraction(cuentaInfo.cuentaItem item) {
 
+
     }
 }
+

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,17 +29,41 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_pedidos, parent, false);
+        notifyDataSetChanged();
         return new ViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(pedidosRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.btn.setText(mValues.get(position).pedido);
+            holder.nombre.setText(mValues.get(position).pedido);
+            holder.cantidad.setText(holder.mItem.getCantidad());
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mListener.onListFragmentInteraction(holder.mItem);
+                }
+            });
+
+            holder.menos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(holder.mItem.cantidad>=2) {
+                        holder.mItem.removeOne();
+                        holder.cantidad.setText(holder.mItem.getCantidad());
+                    }else {
+                        cuentaInfo.clearItem(mValues.get(position));
+                        mValues.remove(holder.mItem);
+                    }
+                }
+            });
+            holder.mas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.mItem.addOne();
+                    holder.cantidad.setText(holder.mItem.getCantidad());
                 }
             });
 
@@ -53,14 +78,18 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public final View mView;
-        public final Button btn;
+        public final ImageButton menos, mas;
+        public final TextView nombre, cantidad;
         public cuentaItem mItem;
 
 
         public ViewHolder(View view) {
             super(view);
             this.mView = view;
-            this.btn = view.findViewById(R.id.pedidoBtn);
+            this.menos = view.findViewById(R.id.menosProd);
+            this.mas = view.findViewById(R.id.masProd);
+            this.nombre = view.findViewById(R.id.nombreProd);
+            this.cantidad = view.findViewById(R.id.cantProd);
         }
 
         @Override

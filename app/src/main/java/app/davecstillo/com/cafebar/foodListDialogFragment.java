@@ -14,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.Content.foodInfo.foodItem;
 
@@ -51,43 +55,74 @@ public class foodListDialogFragment extends DialogFragment {
         RecyclerView recyclerView = (RecyclerView) view;
         //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
+        foodInfo.clearList();
+        pedirComida(dialogName, recyclerView);
 
-
-
-        foodInfo.addItem(foodInfo.createFoodInfo(1,"Absolut Melon Mojito",R.drawable.absolut_melon_mojito));
-        foodInfo.addItem(foodInfo.createFoodInfo(2,"Adios MotherFucker",R.drawable.adios_motherfcker));
-        foodInfo.addItem(foodInfo.createFoodInfo(3,"Blue Magic",R.drawable.blue_magic));
-        foodInfo.addItem(foodInfo.createFoodInfo(4,"Alexander",R.drawable.alexander));
-        foodInfo.addItem(foodInfo.createFoodInfo(5,"Agave Kiss",R.drawable.agave_kiss));
-        foodInfo.addItem(foodInfo.createFoodInfo(6,"The Incredible Hulk",R.drawable.avengers_incredible_hulk));
-        foodInfo.addItem(foodInfo.createFoodInfo(7,"Blue Frog Cocktail",R.drawable.blue_frog_cocktail));
-        foodInfo.addItem(foodInfo.createFoodInfo(8,"AkuAku",R.drawable.akuaku));
-        foodInfo.addItem(foodInfo.createFoodInfo(9,"Alabama Bushwacker",R.drawable.alabama_bushwacker));
-        foodInfo.addItem(foodInfo.createFoodInfo(10,"Amaro Spike",R.drawable.amaro_spike));
-        foodInfo.addItem(foodInfo.createFoodInfo(11,"Area 51 Shot",R.drawable.area_51_shot));
-        foodInfo.addItem(foodInfo.createFoodInfo(12,"Aurora Borealis",R.drawable.aurora_borealis));
-        foodInfo.addItem(foodInfo.createFoodInfo(13,"Bacon Shot Glasses",R.drawable.bacon_shot_glasses));
-        foodInfo.addItem(foodInfo.createFoodInfo(14,"Berry Mojito",R.drawable.berry_mojito));
-        foodInfo.addItem(foodInfo.createFoodInfo(15,"Birth Bath",R.drawable.bird_bath));
-        foodInfo.addItem(foodInfo.createFoodInfo(16,"BlackBerry Mango Margarita",R.drawable.blackberry_mango_margarita));
-        foodInfo.addItem(foodInfo.createFoodInfo(17,"BlowJob Shots",R.drawable.blowjob_shots));
-        foodInfo.addItem(foodInfo.createFoodInfo(18,"Blue Jamaican Long Island",R.drawable.blue_jamaican_long_island));
-        foodInfo.addItem(foodInfo.createFoodInfo(19,"Blue Lemonade",R.drawable.blue_lemonade));
-        foodInfo.addItem(foodInfo.createFoodInfo(20,"BlueBerry Mojito",R.drawable.blueberry_mojito));
-        foodInfo.addItem(foodInfo.createFoodInfo(21,"Hooker Shots",R.drawable.hooker_shots_2));
-        foodInfo.addItem(foodInfo.createFoodInfo(22,"Thousand Knife Vs Bacardi",R.drawable.thousand_knife_vs_bacardi_151));
-        foodInfo.addItem(foodInfo.createFoodInfo(23,"Way to die #151",R.drawable.way_to_die_no_151));
-
-
-
-        recyclerView.setAdapter(new foodListRecyclerView(foodInfo.ITEMS, mListener, this));
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle(dialogName);
-        builder.setView(view);
-        builder.create();
         return view;
     }
+
+
+
+    public void pedirComida(String nombreTabla, RecyclerView recyclerView){
+        nombreTabla = nombreTabla.replace(" ", "_");
+        final String tablaName = nombreTabla;
+        StringBuilder path = new StringBuilder("getproduct.php?tabla=");
+        path.append(nombreTabla);
+
+        String finalurl = path.toString();
+
+        Log.d("URL", finalurl);
+
+        new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(finalurl), (json, exception)->{
+
+
+            if(exception!=null){
+                Log.d("Exception",exception.getMessage());
+            }
+            if(json!=null){
+                JsonObject object = json.getAsJsonObject();
+                JsonArray array = object.getAsJsonArray(tablaName);
+
+
+
+                for(JsonElement res : json.getAsJsonObject().get(tablaName).getAsJsonArray()){
+                    int Id, Precio;
+                    String Nombre, Imagen;
+
+
+                    if(res.getAsJsonObject().get("Result")!=null){
+
+                    }else{
+                        Id = res.getAsJsonObject().get("ID").getAsInt();
+                        Nombre = res.getAsJsonObject().get("Nombre").getAsString();
+                        Imagen = res.getAsJsonObject().get("Imagen").getAsString();
+                        Precio = res.getAsJsonObject().get("Precio").getAsInt();
+
+                        createNewfoodItem(Id, Nombre, Imagen, Precio,tablaName, recyclerView);
+
+
+                    }
+
+
+
+                }
+            }
+
+
+        }).execute();
+
+    }
+
+
+    public void createNewfoodItem(int Id, String Nombre, String Imagen, int Precio,String categoria,RecyclerView recyclerView){
+        foodInfo.addItem(foodInfo.createFoodInfo(Id,Nombre,Imagen,Precio,categoria));
+
+        recyclerView.setAdapter(new foodListRecyclerView(foodInfo.ITEMS,mListener,this));
+
+    }
+
+
+
 
 
 

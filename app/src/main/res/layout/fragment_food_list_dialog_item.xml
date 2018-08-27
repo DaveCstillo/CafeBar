@@ -16,7 +16,7 @@
         android:layout_gravity="center_vertical|center_horizontal|center"
         android:layout_margin="6dp"
         android:contentDescription="Imagen de Comida"
-        android:src="@drawable/blue_magic" />
+         />
 
     <TextView
         android:id="@+id/exText"

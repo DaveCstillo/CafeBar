@@ -1,5 +1,7 @@
 package app.davecstillo.com.cafebar.Content;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,27 +23,47 @@ public class foodInfo {
         ITEM_MAP.put(String.valueOf(item.id), item);
     }
 
-    public static foodItem createFoodInfo( int id, String nombre, int imgId){
-        return new foodItem(id, nombre,imgId);
+    public static foodItem createFoodInfo( int id, String nombre, String imgId,int precio, String categoria){
+        return new foodItem(id, nombre,imgId,precio,categoria);
     }
 
+
+    public static void clearList(){
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
 
 
     public static class foodItem{
         public final int id;
         public final String name;
-        public final int imgID;
+        public final String imgID;
+        public final int precio;
+        public final String categoria;
+        Bitmap Imagen;
 
-
-        public foodItem(int id, String name, int imgId) {
+        public foodItem(int id, String name, String imgId, int precio, String categoria) {
             this.id = id;
             this.name = name;
             this.imgID = imgId;
+            this.precio = precio;
+            this.categoria = categoria;
+
         }
 
         @Override
         public String toString() {
             return super.toString();
         }
+
+
+        public Bitmap getImagen() {
+            return Imagen;
+        }
+
+        public void setImagen(Bitmap imagen) {
+            Imagen = imagen;
+        }
     }
+
 }

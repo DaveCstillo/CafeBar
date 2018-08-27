@@ -1,7 +1,10 @@
 package app.davecstillo.com.cafebar;
 
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +39,42 @@ public class foodListRecyclerView extends RecyclerView.Adapter<foodListRecyclerV
     @Override
     public void onBindViewHolder(foodListRecyclerView.ViewHolder holder, int position) {
 
+        ponerImagen(mValues.get(position).imgID, holder.imagen, position);
         holder.mItem = mValues.get(position);
         holder.text.setText(mValues.get(position).name);
-        holder.imagen.setImageResource(mValues.get(position).imgID);
+        holder.imagen.setImageBitmap(mValues.get(position).getImagen());
+
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onListFragmentInteraction(holder.mItem, dialogFragment);
             }
         });
+
+    }
+
+
+    public void ponerImagen(String imgName, ImageView view, int position){
+        Images.newApi(mValues.get(position).categoria);
+        String imgurl = imgName;
+        ImageView Imagen = view;
+
+        new BackgroundTask<Bitmap>(() -> Images.get(imgurl), (b,e)->{
+
+            if(e!=null){
+
+            }
+            if(b!=null){
+                Log.d("Imagen", "Puesta");
+                //view.setImageBitmap(b);
+                Imagen.setImageBitmap(b);
+                //view.setImageBitmap(mValues.get(position).getImagen());
+            }
+
+
+        }).execute();
+
 
     }
 

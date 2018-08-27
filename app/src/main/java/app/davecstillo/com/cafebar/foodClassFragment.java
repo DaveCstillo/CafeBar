@@ -28,6 +28,8 @@ public class foodClassFragment extends BaseFragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    RecyclerView recyclerView;
+    Button boton;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,11 +61,11 @@ public class foodClassFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_foodclass_list, container, false);
-
+        boton = view.findViewById(R.id.btnFood);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -75,6 +77,10 @@ public class foodClassFragment extends BaseFragment {
 
 
         return view;
+    }
+
+    public Button getBoton(){
+        return this.boton;
     }
 
 

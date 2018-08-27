@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/pedidoBack">
 
-
-    <Button
-        android:id="@+id/pedidoBtn"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/nombreProd"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/pedidoBack"
-        />
+        android:layout_gravity="center_vertical|start"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:text="Nombre"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <ImageButton
+        android:id="@+id/menosProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:background="@color/transparente"
+        android:padding="12dp"
+        android:src="@drawable/ic_chevron_left" />
+
+    <TextView
+        android:id="@+id/cantProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        android:text="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <ImageButton
+        android:id="@+id/masProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:background="@color/transparente"
+        android:padding="12dp"
+        android:src="@drawable/ic_chevron_right" />
 
 </LinearLayout>

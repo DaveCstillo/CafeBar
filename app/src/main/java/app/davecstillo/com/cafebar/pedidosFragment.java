@@ -15,7 +15,7 @@ import app.davecstillo.com.cafebar.Content.cuentaInfo.cuentaItem;
 public class pedidosFragment extends BaseFragment {
 
     private OnListFragmentInteractionListener mListener;
-
+    private RecyclerView recyclerView;
 
     public pedidosFragment() {
         //have an empty constructor for calls
@@ -34,19 +34,30 @@ public class pedidosFragment extends BaseFragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            recyclerView.setAdapter(new pedidosRecyclerViewAdapter(cuentaInfo.ITEMS, mListener));
+                pedidosRecyclerViewAdapter pedidos;
+                pedidos = new pedidosRecyclerViewAdapter(cuentaInfo.ITEMS, mListener);
+
+
+
+            recyclerView.setAdapter(pedidos);
+
         }
         return view;
     }
+
+
+
 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
 
 
     @Override

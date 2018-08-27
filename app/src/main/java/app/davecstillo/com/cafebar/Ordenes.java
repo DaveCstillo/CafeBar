@@ -1,8 +1,11 @@
 package app.davecstillo.com.cafebar;
 
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +21,7 @@ public class Ordenes extends BaseFragment {
 
     boolean VariasCuentas;
     Button addThing;
-    View f;
+    View f,p;
 
     boolean prodVisible = false;
 
@@ -40,6 +43,7 @@ public class Ordenes extends BaseFragment {
 
 
         addThing = view.findViewById(R.id.addthing);
+        p = view.findViewById(R.id.pedidosList);
         f = view.findViewById(R.id.prodItem);
         f.setVisibility(View.GONE);
 
@@ -55,12 +59,17 @@ public class Ordenes extends BaseFragment {
             public void onClick(View view) {
                if(!prodVisible) {
                    f.setVisibility(View.VISIBLE);
-                   Toast.makeText(getContext(),"Alv  :v",Toast.LENGTH_LONG).show();
+                   Toast.makeText(getContext(),"Alv  :v",Toast.LENGTH_SHORT).show();
                    prodVisible = true;
+                   addThing.setText("Mostrar Cuenta");
+                   addThing.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_shopping_basket, 0, 0, 0);
                }else {
                    f.setVisibility(View.GONE);
-                   Toast.makeText(getContext(),"Alv  v:",Toast.LENGTH_LONG).show();
+                   Toast.makeText(getContext(),"Alv  v:",Toast.LENGTH_SHORT).show();
                    prodVisible = false;
+                   addThing.setText("Agregar");
+                   addThing.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_plus, 0, 0, 0);
+
                }
             }
         });

@@ -69,6 +69,10 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
+
+        httpHandler.instance = new httpHandler("https://cafebarsite.000webhostapp.com/");
+        Images.init();
+
         populateAutoComplete();
 
         mPasswordView = findViewById(R.id.password);
