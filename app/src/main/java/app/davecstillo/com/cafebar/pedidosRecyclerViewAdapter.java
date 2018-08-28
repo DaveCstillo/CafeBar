@@ -29,11 +29,8 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_pedidos, parent, false);
-        notifyDataSetChanged();
         return new ViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(pedidosRecyclerViewAdapter.ViewHolder holder, int position) {

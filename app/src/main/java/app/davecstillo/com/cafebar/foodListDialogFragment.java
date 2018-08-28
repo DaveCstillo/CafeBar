@@ -57,6 +57,7 @@ public class foodListDialogFragment extends DialogFragment {
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));
         foodInfo.clearList();
         pedirComida(dialogName, recyclerView);
+        getDialog().setTitle(dialogName);
 
         return view;
     }
