@@ -27,6 +27,11 @@ public class ProductContent {
         return new ProdListItem(position, nombre);
     }
 
+    public void clearList(){
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
+
 
 
 

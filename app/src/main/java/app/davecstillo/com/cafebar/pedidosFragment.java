@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import app.davecstillo.com.cafebar.Content.cuentaInfo;
 import app.davecstillo.com.cafebar.Content.cuentaInfo.cuentaItem;
@@ -16,6 +17,9 @@ public class pedidosFragment extends BaseFragment {
 
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
+    ImageButton extraProd;
+    Boolean eVisible = false;
+
 
     public pedidosFragment() {
         //have an empty constructor for calls
@@ -31,14 +35,16 @@ public class pedidosFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_productitem_list, container, false);
 
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-                pedidosRecyclerViewAdapter pedidos;
+            pedidosRecyclerViewAdapter pedidos;
                 pedidos = new pedidosRecyclerViewAdapter(cuentaInfo.ITEMS, mListener);
+                pedidos.notifyDataSetChanged();
 
 
 
@@ -47,10 +53,6 @@ public class pedidosFragment extends BaseFragment {
         }
         return view;
     }
-
-
-
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

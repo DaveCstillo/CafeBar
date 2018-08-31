@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -15,7 +16,9 @@ import com.google.gson.JsonObject;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
 import app.davecstillo.com.cafebar.Content.cuentaInfo;
+import app.davecstillo.com.cafebar.Content.extrasContent;
 import app.davecstillo.com.cafebar.Content.foodInfo;
+import app.davecstillo.com.cafebar.Content.mesas;
 import app.davecstillo.com.cafebar.R;
 import app.davecstillo.com.cafebar.dummy.DummyContent;
 
@@ -23,12 +26,14 @@ public class BaseActivity extends AppCompatActivity implements
         ProductItemFragment.OnListFragmentInteractionListener,
         foodClassFragment.OnListFragmentInteractionListener,
         foodListDialogFragment.OnListFragmentInteractionListener,
-        pedidosFragment.OnListFragmentInteractionListener {
+        pedidosFragment.OnListFragmentInteractionListener,
+        extrasFragment.OnListFragmentInteractionListener,
+        MesasFragment.OnListFragmentInteractionListener{
 
 
     public boolean traido = false;
     foodListDialogFragment foodDialog;
-    Fragment pedidos;
+    Ordenes ordenes;
 
 
     public FragmentManager manager = getSupportFragmentManager();
@@ -51,6 +56,10 @@ public class BaseActivity extends AppCompatActivity implements
         return manager;
     }
 
+    public void setOrdenes(Ordenes ordenes) {
+        this.ordenes = ordenes;
+    }
+
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
@@ -71,13 +80,32 @@ public class BaseActivity extends AppCompatActivity implements
 
         Log.d("foodItem", item.name);
         Toast.makeText(getApplicationContext(),"foodItem: "+item.name, Toast.LENGTH_LONG).show();
-        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name,1));
+        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name,1, item.precio));
         dialog.dismiss();
+        ordenes.restorePedidos();
+        ordenes.toggleCategories();
     }
 
 
     @Override
     public void onListFragmentInteraction(cuentaInfo.cuentaItem item) {
+
+
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(extrasContent.extraItem item) {
+        
+    }
+
+    @Override
+    public void onListFragmentInteraction(mesas.mesaItem item, View view) {
+        view.setOnClickListener(v->{
+            BaseFragment f = new cuentas();
+            changeFragment(f);
+        });
+
 
 
     }

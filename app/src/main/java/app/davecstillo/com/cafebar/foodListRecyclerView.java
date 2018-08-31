@@ -42,6 +42,7 @@ public class foodListRecyclerView extends RecyclerView.Adapter<foodListRecyclerV
         ponerImagen(mValues.get(position).imgID, holder.imagen, position);
         holder.mItem = mValues.get(position);
         holder.text.setText(mValues.get(position).name);
+       // holder.precio.setText("Q. "+ mValues.get(position).precio);
         holder.imagen.setImageBitmap(mValues.get(position).getImagen());
 
 

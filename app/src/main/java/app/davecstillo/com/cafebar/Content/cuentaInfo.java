@@ -21,8 +21,8 @@ public class cuentaInfo {
         ITEM_MAP.put(String.valueOf(item.id),item);
     }
 
-    public static cuentaItem createCuentaItem(int id, String pedido, int cantidad){
-        return new cuentaItem(id, pedido, cantidad);
+    public static cuentaItem createCuentaItem(int id, String pedido, int cantidad, int precio){
+        return new cuentaItem(id, pedido, cantidad,precio);
     }
 
     public static void clearItem(cuentaItem item){
@@ -31,16 +31,18 @@ public class cuentaInfo {
     }
 
     public static class cuentaItem{
-        public final int id;
+        public final int id, precio;
         public final String pedido;
         public int cantidad;
         public String extras;
 
 
-        public cuentaItem(int id, String pedido, int cantidad) {
+        public cuentaItem(int id, String pedido, int cantidad, int precio) {
             this.id = id;
             this.pedido = pedido;
             this.cantidad = cantidad;
+            this.precio = precio;
+
         }
 
         public void addOne(){
@@ -50,6 +52,9 @@ public class cuentaInfo {
             cantidad=cantidad-1;
         }
 
+        public int getPrecio() {
+            return precio;
+        }
 
         public void setExtras(String extras){
             this.extras = extras;

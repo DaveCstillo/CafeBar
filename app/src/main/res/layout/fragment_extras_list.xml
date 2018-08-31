@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <Button
+        android:id="@+id/nuevoExtra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar/Quitar Ingrediente"
+        android:drawableLeft="@drawable/ic_plus"
+        />
+
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/extrasList"
+    android:name="app.davecstillo.com.cafebar.extrasFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:context=".extrasFragment"
+    tools:listitem="@layout/fragment_extras" />
+
+</LinearLayout>
