@@ -101,10 +101,12 @@ public class BaseActivity extends AppCompatActivity implements
 
     @Override
     public void onListFragmentInteraction(mesas.mesaItem item, View view) {
-        view.setOnClickListener(v->{
-            BaseFragment f = new cuentas();
-            changeFragment(f);
-        });
+//        cuentas f = new cuentas();
+//
+//        view.setOnClickListener(v->{
+//            Toast.makeText(getApplicationContext(),"que onda!!",Toast.LENGTH_SHORT).show();
+//            changeFragment(f);
+//        });
 
 
 

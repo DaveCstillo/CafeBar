@@ -69,7 +69,7 @@ public class MesasFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MesasRecyclerViewAdapter(mesas.ITEMS, mListener));
+            recyclerView.setAdapter(new MesasRecyclerViewAdapter(mesas.ITEMS, mListener,getBaseActivity()));
         }
         return view;
     }

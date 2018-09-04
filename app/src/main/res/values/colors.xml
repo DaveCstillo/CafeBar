@@ -20,7 +20,7 @@
     <!--escala de grises-->
     <color name="gris90">#909090</color>
     <color name="grisA5">#A5A5A5</color>
-    <color name="grisB">#BBB</color>
+    <color name="grisB">#bbbbbb</color>
     <color name="grisD1">#D1D1D1</color>
     <color name="grisDF">#DFDFDF</color>
     <color name="grisEC">#ECECEC</color>

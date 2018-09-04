@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.davecstillo.com.cafebar.MesasFragment.OnListFragmentInteractionListener;
 import app.davecstillo.com.cafebar.Content.mesas.mesaItem;
@@ -21,10 +22,12 @@ public class MesasRecyclerViewAdapter extends RecyclerView.Adapter<MesasRecycler
 
     private final List<mesaItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final BaseActivity activity;
 
-    public MesasRecyclerViewAdapter(List<mesaItem> items, OnListFragmentInteractionListener listener) {
+    public MesasRecyclerViewAdapter(List<mesaItem> items, OnListFragmentInteractionListener listener, BaseActivity activity) {
         mValues = items;
         mListener = listener;
+        this.activity = activity;
     }
 
     @Override
@@ -38,15 +41,21 @@ public class MesasRecyclerViewAdapter extends RecyclerView.Adapter<MesasRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.NoMesa.setText(String.valueOf(mValues.get(position).id));
+        holder.NoMesa.setOnClickListener(v->{
+            cuentas f = new cuentas(mValues.get(position).id);
+            activity.changeFragment(f);
 
+                }
+        );
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem, holder.mesa);
+                    mListener.onListFragmentInteraction(holder.mItem, holder.NoMesa);
                 }
             }
         });

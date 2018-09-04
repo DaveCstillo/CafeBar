@@ -1,6 +1,7 @@
 package app.davecstillo.com.cafebar;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,9 +27,14 @@ public class cuentas extends BaseFragment {
     ProductContent pContent;
     Ordenes f;
     ProgressDialog progressBar;
+    int noMesa;
 
     public cuentas() {
         // Required empty public constructor
+    }
+    @SuppressLint("ValidFragment")
+    public cuentas(int noMesa){
+        this.noMesa = noMesa;
     }
 
 
@@ -75,6 +81,7 @@ public class cuentas extends BaseFragment {
 
     public void callList(String path, BaseFragment fragment){
         progressBar.show();
+        pContent.clearList();
         new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(path), (json,exception)->{
             if(exception!=null){
 
