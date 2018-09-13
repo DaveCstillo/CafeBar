@@ -119,7 +119,8 @@ public class foodListDialogFragment extends DialogFragment {
         foodInfo.addItem(foodInfo.createFoodInfo(Id,Nombre,Imagen,Precio,categoria));
 
         recyclerView.setAdapter(new foodListRecyclerView(foodInfo.ITEMS,mListener,this));
-        getDialog().setTitle(dialogName);
+        if(getDialog()!=null)
+            getDialog().setTitle(dialogName);
 
     }
 
