@@ -34,7 +34,7 @@ public class cuentaInfo {
         public final int id, precio;
         public final String pedido;
         public int cantidad;
-        public String extras;
+        public String extras = "";
 
 
         public cuentaItem(int id, String pedido, int cantidad, int precio) {

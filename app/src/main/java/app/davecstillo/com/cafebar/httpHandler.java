@@ -2,16 +2,33 @@ package app.davecstillo.com.cafebar;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
+import android.util.JsonReader;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import app.davecstillo.com.cafebar.Content.cuentaInfo;
 
 public class httpHandler {
 
@@ -27,7 +44,7 @@ public class httpHandler {
         parser = new JsonParser();
     }
 
-
+//Esto es lo que tengo para leer el json que envia el servidor
     public JsonElement getJson(String path) throws Exception
     {
         Log.i("path", path);
@@ -47,6 +64,114 @@ public class httpHandler {
         Log.i("Json", chaine.toString());
         Log.i("Json2", String.valueOf(parser.parse(chaine.toString())));
         return parser.parse(chaine.toString());
+    }
+
+    public JsonElement sendJson(String path, List<cuentaInfo.cuentaItem> item){
+        OutputStream os = null;
+        InputStream is = null;
+        JsonReader reader = null;
+        String message = "", jsonFinal = "";
+        JSONArray jsonArray = new JSONArray();
+        HttpURLConnection connection = null;
+            StringBuilder chaine = new StringBuilder("");
+        Log.i("path sendJSON", path);
+        try {
+            for(int i=0;i<item.size();i++){
+                message = toJSON(item.get(i),i);
+                try{
+                jsonArray.put(i,message);
+                jsonFinal = jsonArray.toString();
+                    Log.d("JsonArray",jsonArray.toString());
+                    Log.d("JsonFinal",jsonFinal);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            Log.d("JSONEnviar", jsonArray.toString());
+            URL url = new URL(this.url + path);
+            connection = (HttpURLConnection)url.openConnection();
+            //connection.setReadTimeout(10000 /*Milliseconds*/);
+            //connection.setReadTimeout(15000 /*Milliseconds*/);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setFixedLengthStreamingMode(jsonFinal.getBytes().length);
+
+            connection.setRequestProperty("Content-Type","application/json;charset=utf-8");
+            connection.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+            connection.connect();
+
+            os = new BufferedOutputStream(connection.getOutputStream());
+
+
+            os.write(jsonFinal.getBytes());
+            os.flush();
+
+
+            //is = new BufferedInputStream(connection.getInputStream());
+            //BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                //is = connection.getInputStream();
+//            reader = new JsonReader(rd);
+//            String line = "";
+//            while ((line = rd.readLine()) != null) {
+//                chaine.append(line);
+//            }
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                os.close();
+                //is.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            connection.disconnect();
+        }
+
+            //reader.setLenient(true);
+        Log.d("Response:",chaine.toString());
+
+            return parser.parse(chaine.toString());
+
+
+    }
+
+
+    public static String toJSON(cuentaInfo.cuentaItem item, int i){
+            JSONObject jsonObject = new JSONObject();
+            JSONObject jsonAdd = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+        try {
+            //Here we convert Java Object to JSON
+                Log.d("ITEM", item.toString());
+
+
+                jsonObject.put("Pedido",item.getPedido());
+                jsonObject.put("Precio",item.getPrecio());
+                jsonObject.put("Cantidad",item.getCantidad());
+
+                if(item.getExtras()!="") {
+                    jsonObject.put("Extras", item.getExtras());
+                }
+
+                jsonAdd.put(String.valueOf(i),jsonObject);
+                Log.d("JsonAdd1",jsonAdd.toString());
+
+
+            Log.d("JsonAdd2",jsonAdd.toString());
+
+            return jsonAdd.toString();
+
+
+        }catch(JSONException ex){
+            ex.printStackTrace();
+        }
+        return null;
+
     }
 
     public Bitmap getImage(String name) throws Exception

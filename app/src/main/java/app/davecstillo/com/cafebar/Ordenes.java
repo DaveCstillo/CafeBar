@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.gson.JsonElement;
+
+import app.davecstillo.com.cafebar.Content.cuentaInfo;
 
 
 /**
@@ -66,7 +71,24 @@ public class Ordenes extends BaseFragment {
           toggleCategories();
         });
 
-        continuar.setOnClickListener((v)-> Toast.makeText(getContext(),"Continuando",Toast.LENGTH_LONG).show());
+        continuar.setOnClickListener((v)-> {
+            String path = "setCuentaInfo.php";
+
+             new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, cuentaInfo.ITEMS), (json,exception)->{
+
+                if(exception!=null){
+                    exception.printStackTrace();
+                }
+                if(json!=null){
+                    Log.d("LOCOO", "Ha funcionao");
+                    Log.d("Json", json.toString());
+                }
+
+
+
+            }).execute();
+
+        });
 
 
         return view;
