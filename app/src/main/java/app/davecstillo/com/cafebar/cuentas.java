@@ -53,6 +53,7 @@ public class cuentas extends BaseFragment {
         progressBar.setIndeterminate(true);
         progressBar.setMessage("Cargando...");
         progressBar.setCancelable(false);
+        f.setNoMesa(noMesa);
 
 
 
@@ -103,7 +104,7 @@ public class cuentas extends BaseFragment {
                     }
                 }
                 progressBar.dismiss();
-                getBaseActivity().changeFragment(f);
+                getBaseActivity().changeFragment(fragment);
 
             }
 

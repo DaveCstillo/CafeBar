@@ -2,6 +2,8 @@ package app.davecstillo.com.cafebar;
 
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,23 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
                 }
 
 
+            });
+
+            holder.extraTxt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    mValues.get(position).setExtras(String.valueOf(charSequence));
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
             });
 
 

@@ -16,12 +16,12 @@ public class cuentaInfo {
 
     }
 
-    public static void addItem(cuentaItem item){
+    public void addItem(cuentaItem item){
         ITEMS.add(item);
         ITEM_MAP.put(String.valueOf(item.id),item);
     }
 
-    public static cuentaItem createCuentaItem(int id, String pedido, int cantidad, int precio){
+    public cuentaItem createCuentaItem(int id, String pedido, int cantidad, int precio){
         return new cuentaItem(id, pedido, cantidad,precio);
     }
 

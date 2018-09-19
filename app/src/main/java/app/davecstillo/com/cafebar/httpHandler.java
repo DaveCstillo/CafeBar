@@ -50,6 +50,7 @@ public class httpHandler {
         Log.i("path", path);
         StringBuffer chaine = new StringBuffer("");
         URL url = new URL(this.url + path);
+        Log.i("URL", String.valueOf(url));
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestProperty("User-Agent", "");
         connection.setRequestMethod("GET");
@@ -66,30 +67,40 @@ public class httpHandler {
         return parser.parse(chaine.toString());
     }
 
-    public JsonElement sendJson(String path, List<cuentaInfo.cuentaItem> item){
+    public JsonElement sendJson(String path, List<cuentaInfo.cuentaItem> item, int noCuenta, int noMesa){
         OutputStream os = null;
         InputStream is = null;
         JsonReader reader = null;
         String message = "", jsonFinal = "";
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jObject1 = new JSONObject();
         JSONArray jsonArray = new JSONArray();
+        JSONArray jArray1 = new JSONArray();
         HttpURLConnection connection = null;
             StringBuilder chaine = new StringBuilder("");
         Log.i("path sendJSON", path);
         try {
+            jsonObject.put("NoMesa",noMesa);
             for(int i=0;i<item.size();i++){
+                jObject1.put("NoCuenta",String.valueOf(noCuenta));
                 message = toJSON(item.get(i),i);
                 try{
-                jsonArray.put(i,message);
-                jsonFinal = jsonArray.toString();
+                    jsonArray.put(i,message);
+                    //jsonFinal = jsonArray.toString();
                     Log.d("JsonArray",jsonArray.toString());
-                    Log.d("JsonFinal",jsonFinal);
+                    //Log.d("JsonFinal",jsonFinal);
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
+                jObject1.put("Listado",jsonArray);
             }
+            jArray1.put(0,jObject1);
+            jsonObject.put("Orden",jArray1);
+            jsonFinal = jsonObject.toString();
 
-            Log.d("JSONEnviar", jsonArray.toString());
+            Log.d("JSONEnviar", jsonFinal);
             URL url = new URL(this.url + path);
+            Log.i("URL", String.valueOf(url));
             connection = (HttpURLConnection)url.openConnection();
             //connection.setReadTimeout(10000 /*Milliseconds*/);
             //connection.setReadTimeout(15000 /*Milliseconds*/);
@@ -122,6 +133,8 @@ public class httpHandler {
 
         }catch (IOException e){
             e.printStackTrace();
+        }catch (JSONException e){
+            e.printStackTrace();
         }finally {
             try{
                 os.close();
@@ -153,10 +166,8 @@ public class httpHandler {
                 jsonObject.put("Pedido",item.getPedido());
                 jsonObject.put("Precio",item.getPrecio());
                 jsonObject.put("Cantidad",item.getCantidad());
+                jsonObject.put("Extras", item.getExtras());
 
-                if(item.getExtras()!="") {
-                    jsonObject.put("Extras", item.getExtras());
-                }
 
                 jsonAdd.put(String.valueOf(i),jsonObject);
                 Log.d("JsonAdd1",jsonAdd.toString());

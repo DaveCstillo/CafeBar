@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 
+import java.util.Random;
+
 import app.davecstillo.com.cafebar.Content.cuentaInfo;
 
 
@@ -30,6 +32,10 @@ public class Ordenes extends BaseFragment {
     boolean VariasCuentas;
     Button addThing, continuar;
     View f,p;
+    int noMesa;
+    cuentaInfo info = new cuentaInfo();
+    Random rand = new Random();
+    int noCuenta;
 
     boolean prodVisible = false;
 
@@ -58,6 +64,9 @@ public class Ordenes extends BaseFragment {
         f = view.findViewById(R.id.prodItem);
         f.setVisibility(View.GONE);
 
+        noCuenta = rand.nextInt(1000);
+        Log.d("Numero de Cuenta", String.valueOf(noCuenta));
+
         getBaseActivity().setOrdenes(this);
 
 
@@ -74,7 +83,7 @@ public class Ordenes extends BaseFragment {
         continuar.setOnClickListener((v)-> {
             String path = "setCuentaInfo.php";
 
-             new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, cuentaInfo.ITEMS), (json,exception)->{
+             new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, info.ITEMS,noCuenta,noMesa), (json,exception)->{
 
                 if(exception!=null){
                     exception.printStackTrace();
@@ -126,4 +135,11 @@ public class Ordenes extends BaseFragment {
 
     }
 
+    public int getNoMesa() {
+        return noMesa;
+    }
+
+    public void setNoMesa(int noMesa) {
+        this.noMesa = noMesa;
+    }
 }

@@ -80,7 +80,7 @@ public class BaseActivity extends AppCompatActivity implements
 
         Log.d("foodItem", item.name);
         Toast.makeText(getApplicationContext(),"foodItem: "+item.name, Toast.LENGTH_LONG).show();
-        cuentaInfo.addItem(cuentaInfo.createCuentaItem(item.id,item.name,1, item.precio));
+        ordenes.info.addItem(ordenes.info.createCuentaItem(item.id,item.name,1, item.precio));
         dialog.dismiss();
         ordenes.restorePedidos();
         ordenes.toggleCategories();

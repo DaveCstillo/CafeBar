@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".menuActivity"
-            android:label="@string/title_activity_menu"
+            android:label="CafeBar"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
