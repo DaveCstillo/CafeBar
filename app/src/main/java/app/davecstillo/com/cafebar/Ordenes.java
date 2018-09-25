@@ -1,6 +1,7 @@
 package app.davecstillo.com.cafebar;
 
 
+import android.app.Dialog;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,13 +31,13 @@ public class Ordenes extends BaseFragment {
 
 
     boolean VariasCuentas;
+    int cuantasCuentas, cuantasPendientes, cuentaActual;
     Button addThing, continuar;
     View f,p;
     int noMesa;
-    cuentaInfo info = new cuentaInfo();
     Random rand = new Random();
     int noCuenta;
-
+    cuentaInfo info;
     boolean prodVisible = false;
 
     public Ordenes() {
@@ -63,6 +64,9 @@ public class Ordenes extends BaseFragment {
         p = view.findViewById(R.id.pedidosList);
         f = view.findViewById(R.id.prodItem);
         f.setVisibility(View.GONE);
+        info = new cuentaInfo();
+        info.clearList();
+        restorePedidos();
 
         noCuenta = rand.nextInt(1000);
         Log.d("Numero de Cuenta", String.valueOf(noCuenta));
@@ -71,36 +75,65 @@ public class Ordenes extends BaseFragment {
 
 
         if(VariasCuentas){
-//            Toast.makeText(getContext(),"Se van a pedir cuentas separadas",Toast.LENGTH_LONG).show();
+
         }else{
-//            Toast.makeText(getContext(),"Se va a pedir en una sola cuenta",Toast.LENGTH_LONG).show();
+
         }
 
         addThing.setOnClickListener(view1 -> {
           toggleCategories();
         });
 
-        continuar.setOnClickListener((v)-> {
-            String path = "setCuentaInfo.php";
+        continuar.setOnClickListener((v)->{
+            callList();
+        });
 
-             new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, info.ITEMS,noCuenta,noMesa), (json,exception)->{
 
-                if(exception!=null){
+        setNextBtnText();
+        return view;
+    }
+
+    public void callList(){
+        String path = "setCuentaInfo.php";
+        if(VariasCuentas) {
+
+            new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, info.ITEMS, noCuenta, noMesa, cuentaActual), (json, exception) -> {
+
+                if (exception != null) {
                     exception.printStackTrace();
                 }
-                if(json!=null){
+                if (json != null) {
+                    Log.d("LOCOO", "Ha funcionao");
+                    Log.d("Json", json.toString());
+                    appearChange();
+                }
+
+            }).execute();
+
+
+        }else {
+            new BackgroundTask<JsonElement>(() -> httpHandler.instance.sendJson(path, info.ITEMS, noCuenta, noMesa), (json, exception) -> {
+
+                if (exception != null) {
+                    exception.printStackTrace();
+                }
+                if (json != null) {
                     Log.d("LOCOO", "Ha funcionao");
                     Log.d("Json", json.toString());
                 }
 
 
-
             }).execute();
+        }
+    }
 
-        });
+    public void appearChange(){
+        Ordenes ordenNueva = new Ordenes();
+        ordenNueva.setVariasCuentas(true);
+        ordenNueva.setCuantasCuentas(cuantasCuentas, cuentaActual+1);
+        ordenNueva.setNoMesa(noMesa);
+        getBaseActivity().changeFragment(ordenNueva);
 
-
-        return view;
     }
 
     public void toggleCategories(){
@@ -121,6 +154,19 @@ public class Ordenes extends BaseFragment {
     }
 
 
+    public void setNextBtnText(){
+        if(!VariasCuentas){
+            continuar.setText("Continuar");
+        }else {
+            if(cuantasPendientes>1)
+                continuar.setText("Siguiente");
+            else
+                continuar.setText("Continuar");
+        }
+
+    }
+
+
     public void restorePedidos(){
 
         try {
@@ -134,6 +180,13 @@ public class Ordenes extends BaseFragment {
 
 
     }
+
+    public void setCuantasCuentas(int cuantasCuentas, int actual) {
+        this.cuantasCuentas = cuantasCuentas;
+        this.cuentaActual = actual;
+        this.cuantasPendientes = cuantasCuentas - actual;
+    }
+
 
     public int getNoMesa() {
         return noMesa;

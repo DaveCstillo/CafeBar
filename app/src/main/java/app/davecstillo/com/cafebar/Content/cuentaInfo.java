@@ -30,6 +30,11 @@ public class cuentaInfo {
         ITEM_MAP.remove(item);
     }
 
+    public void clearList(){
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
+
     public static class cuentaItem{
         public final int id, precio;
         public final String pedido;

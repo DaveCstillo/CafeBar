@@ -2,12 +2,14 @@ package app.davecstillo.com.cafebar;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
@@ -46,13 +48,14 @@ public class cuentas extends BaseFragment {
 
         una = view.findViewById(R.id.Cunasola);
         varias = view.findViewById(R.id.Cseparadas);
-        f  = new Ordenes();
         pContent = new ProductContent();
         progressBar = new ProgressDialog(getContext());
 
         progressBar.setIndeterminate(true);
         progressBar.setMessage("Cargando...");
         progressBar.setCancelable(false);
+
+        f  = new Ordenes();
         f.setNoMesa(noMesa);
 
 
@@ -61,6 +64,7 @@ public class cuentas extends BaseFragment {
             @Override
             public void onClick(View view) {
                 f.setVariasCuentas(false);
+                f.setCuantasCuentas(1,1);
                 callList("getcategories.php", f);
 
             }
@@ -69,7 +73,7 @@ public class cuentas extends BaseFragment {
             @Override
             public void onClick(View view) {
                 f.setVariasCuentas(true);
-                callList("getcategories.php", f);
+                callList("getcategories.php", f, progressBar, pContent);
 
             }
         });
@@ -77,6 +81,25 @@ public class cuentas extends BaseFragment {
 
 
         return view;
+    }
+
+    public void callList(String path, Ordenes fragment, ProgressDialog progress, ProductContent pContent){
+
+        CuantasCuentas cuantasCuentas = new CuantasCuentas();
+        cuantasCuentas.setBaseActivity(getBaseActivity());
+        cuantasCuentas.setFragment(fragment);
+        cuantasCuentas.setPath(path);
+        cuantasCuentas.setpContent(pContent);
+        cuantasCuentas.setProgress(progress);
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        cuantasCuentas.setIMM(imm);
+        cuantasCuentas.show(getBaseActivity().getManager(),"Cuantas Cuentas");
+
+
+        if (imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        }
+
     }
 
 

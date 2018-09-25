@@ -53,6 +53,7 @@ public class httpHandler {
         Log.i("URL", String.valueOf(url));
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestProperty("User-Agent", "");
+        connection.setReadTimeout(10000 /*Milliseconds*/);
         connection.setRequestMethod("GET");
         connection.setDoInput(true);
         connection.connect();
@@ -152,7 +153,91 @@ public class httpHandler {
 
 
     }
+    public JsonElement sendJson(String path, List<cuentaInfo.cuentaItem> item, int noCuenta, int noMesa, int cuentaActual){
+        OutputStream os = null;
+        InputStream is = null;
+        JsonReader reader = null;
+        String message = "", jsonFinal = "";
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jObject1 = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONArray jArray1 = new JSONArray();
+        HttpURLConnection connection = null;
+        StringBuilder chaine = new StringBuilder("");
+        Log.i("path sendJSON", path);
+        try {
+            jsonObject.put("NoMesa",noMesa);
+            for(int i=0;i<item.size();i++){
+                jObject1.put("NoCuenta",String.valueOf(noCuenta));
+                message = toJSON(item.get(i),i);
+                try{
+                    jsonArray.put(i,message);
+                    //jsonFinal = jsonArray.toString();
+                    Log.d("JsonArray",jsonArray.toString());
+                    //Log.d("JsonFinal",jsonFinal);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+                jObject1.put("Listado",jsonArray);
+            }
+            jArray1.put(cuentaActual,jObject1);
+            jsonObject.put("Orden",jArray1);
+            jsonFinal = jsonObject.toString();
 
+            Log.d("JSONEnviar", jsonFinal);
+            URL url = new URL(this.url + path);
+            Log.i("URL", String.valueOf(url));
+            connection = (HttpURLConnection)url.openConnection();
+            //connection.setReadTimeout(10000 /*Milliseconds*/);
+            //connection.setReadTimeout(15000 /*Milliseconds*/);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setFixedLengthStreamingMode(jsonFinal.getBytes().length);
+
+            connection.setRequestProperty("Content-Type","application/json;charset=utf-8");
+            connection.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+            connection.connect();
+
+            os = new BufferedOutputStream(connection.getOutputStream());
+
+
+            os.write(jsonFinal.getBytes());
+            os.flush();
+
+
+            //is = new BufferedInputStream(connection.getInputStream());
+            //BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            //is = connection.getInputStream();
+//            reader = new JsonReader(rd);
+//            String line = "";
+//            while ((line = rd.readLine()) != null) {
+//                chaine.append(line);
+//            }
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                os.close();
+                //is.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            connection.disconnect();
+        }
+
+        //reader.setLenient(true);
+        Log.d("Response:",chaine.toString());
+
+        return parser.parse(chaine.toString());
+
+
+    }
 
     public static String toJSON(cuentaInfo.cuentaItem item, int i){
             JSONObject jsonObject = new JSONObject();
