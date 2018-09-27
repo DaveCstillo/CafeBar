@@ -19,6 +19,7 @@ import app.davecstillo.com.cafebar.Content.cuentaInfo;
 import app.davecstillo.com.cafebar.Content.extrasContent;
 import app.davecstillo.com.cafebar.Content.foodInfo;
 import app.davecstillo.com.cafebar.Content.mesas;
+import app.davecstillo.com.cafebar.Content.revisionCuentaContent;
 import app.davecstillo.com.cafebar.R;
 import app.davecstillo.com.cafebar.dummy.DummyContent;
 
@@ -28,7 +29,8 @@ public class BaseActivity extends AppCompatActivity implements
         foodListDialogFragment.OnListFragmentInteractionListener,
         pedidosFragment.OnListFragmentInteractionListener,
         extrasFragment.OnListFragmentInteractionListener,
-        MesasFragment.OnListFragmentInteractionListener{
+        MesasFragment.OnListFragmentInteractionListener,
+        revisiondeCuentaFragment.OnListFragmentInteractionListener{
 
 
     public boolean traido = false;
@@ -56,6 +58,9 @@ public class BaseActivity extends AppCompatActivity implements
         return manager;
     }
 
+    public AppCompatActivity getApp(){
+        return this;
+    }
     public void setOrdenes(Ordenes ordenes) {
         this.ordenes = ordenes;
     }
@@ -107,8 +112,10 @@ public class BaseActivity extends AppCompatActivity implements
 //            Toast.makeText(getApplicationContext(),"que onda!!",Toast.LENGTH_SHORT).show();
 //            changeFragment(f);
 //        });
+    }
 
-
+    @Override
+    public void onListFragmentInteraction(revisionCuentaContent.cuentaContent item) {
 
     }
 }

@@ -2,6 +2,7 @@ package app.davecstillo.com.cafebar;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ public class Ordenes extends BaseFragment {
     int noCuenta;
     cuentaInfo info;
     boolean prodVisible = false;
+    protected enum state {PENDING, FINISHED};
+    public state Estado;
+
 
     public Ordenes() {
         // Required empty public constructor
@@ -59,7 +63,6 @@ public class Ordenes extends BaseFragment {
         getBaseActivity().setSupportActionBar(toolbar);
         toolbar.setTitle("Que va a querer?");
         continuar = view.findViewById(R.id.contBtn);
-
         addThing = view.findViewById(R.id.addthing);
         p = view.findViewById(R.id.pedidosList);
         f = view.findViewById(R.id.prodItem);
@@ -75,9 +78,9 @@ public class Ordenes extends BaseFragment {
 
 
         if(VariasCuentas){
-
+            Estado = state.PENDING;
         }else{
-
+            Estado = state.FINISHED;
         }
 
         addThing.setOnClickListener(view1 -> {
@@ -86,6 +89,7 @@ public class Ordenes extends BaseFragment {
 
         continuar.setOnClickListener((v)->{
             callList();
+            setNextBtnText();
         });
 
 
@@ -105,6 +109,7 @@ public class Ordenes extends BaseFragment {
                 if (json != null) {
                     Log.d("LOCOO", "Ha funcionao");
                     Log.d("Json", json.toString());
+                    revisarCuenta();
                     appearChange();
                 }
 
@@ -125,6 +130,19 @@ public class Ordenes extends BaseFragment {
 
             }).execute();
         }
+
+        if(Estado == state.PENDING){
+
+        }else{
+
+        }
+    }
+
+    public void revisarCuenta(){
+        revisiondeCuentaFragment f = new revisiondeCuentaFragment(noCuenta,noMesa);
+        //TODO: Arreglar esto, que aparezca la confirmacion antes de enviar los datos
+        //getBaseActivity().changeFragment(f);
+        f.show(getBaseActivity().getManager(),"Revision");
     }
 
     public void appearChange(){
@@ -155,14 +173,18 @@ public class Ordenes extends BaseFragment {
 
 
     public void setNextBtnText(){
-        if(!VariasCuentas){
-            continuar.setText("Continuar");
+         if(!VariasCuentas){
+            Estado = state.FINISHED;
+             continuar.setText("Continuar");
         }else {
-            if(cuantasPendientes>1)
+            if(cuantasPendientes>1) {
+                Estado = state.PENDING;
                 continuar.setText("Siguiente");
-            else
+            }else {
+                Estado = state.FINISHED;
                 continuar.setText("Continuar");
-        }
+            }
+         }
 
     }
 
