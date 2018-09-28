@@ -1,8 +1,6 @@
-package app.davecstillo.com.cafebar;
+package app.davecstillo.com.cafebar.ServerConnection;
 
 import android.os.AsyncTask;
-
-import app.davecstillo.com.cafebar.ParamRunnable;
 
 public class BackgroundTask<V> extends AsyncTask<EstudiantesCallable<V>, Void, V>
 {

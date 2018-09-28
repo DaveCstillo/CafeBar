@@ -1,28 +1,22 @@
 package app.davecstillo.com.cafebar;
 
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 
 import java.util.Random;
 
 import app.davecstillo.com.cafebar.Content.cuentaInfo;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
 
 
 /**

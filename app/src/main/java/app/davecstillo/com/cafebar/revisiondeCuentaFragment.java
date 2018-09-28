@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,8 +16,8 @@ import com.google.gson.JsonElement;
 
 import app.davecstillo.com.cafebar.Content.revisionCuentaContent;
 import app.davecstillo.com.cafebar.Content.revisionCuentaContent.cuentaContent;
-
-import java.util.List;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
 
 /**
  * A fragment representing a list of Items.
@@ -102,7 +101,7 @@ public class revisiondeCuentaFragment extends DialogFragment {
         StringBuilder url = new StringBuilder("getCuentas.php?noMesa=");
         url.append(noMesa);
         String path = url.toString();
-        new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(path), (json,ex)->{
+        new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(path), (json, ex)->{
             if(ex!=null){
 
             }

@@ -1,7 +1,6 @@
 package app.davecstillo.com.cafebar;
 
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.davecstillo.com.cafebar.Content.foodInfo.foodItem;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
 import app.davecstillo.com.cafebar.foodListDialogFragment.OnListFragmentInteractionListener;
 
 public class foodListRecyclerView extends RecyclerView.Adapter<foodListRecyclerView.ViewHolder>{
@@ -61,7 +61,7 @@ public class foodListRecyclerView extends RecyclerView.Adapter<foodListRecyclerV
         String imgurl = imgName;
         ImageView Imagen = view;
 
-        new BackgroundTask<Bitmap>(() -> Images.get(imgurl), (b,e)->{
+        new BackgroundTask<Bitmap>(() -> Images.get(imgurl), (b, e)->{
 
             if(e!=null){
 

@@ -1,29 +1,23 @@
-package app.davecstillo.com.cafebar;
+package app.davecstillo.com.cafebar.ServerConnection;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.Nullable;
 import android.util.JsonReader;
 import android.util.Log;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -67,7 +61,7 @@ public class httpHandler {
         Log.i("Json2", String.valueOf(parser.parse(chaine.toString())));
         return parser.parse(chaine.toString());
     }
-
+//Esto es para enviar el array de lo que la gente quiere
     public JsonElement sendJson(String path, List<cuentaInfo.cuentaItem> item, int noCuenta, int noMesa){
         OutputStream os = null;
         InputStream is = null;

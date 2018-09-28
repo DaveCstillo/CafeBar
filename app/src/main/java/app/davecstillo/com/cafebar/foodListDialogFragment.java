@@ -1,13 +1,10 @@
 package app.davecstillo.com.cafebar;
 
 import android.support.v4.app.DialogFragment;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +16,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import app.davecstillo.com.cafebar.Content.foodInfo;
-import app.davecstillo.com.cafebar.Content.foodInfo.foodItem;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>

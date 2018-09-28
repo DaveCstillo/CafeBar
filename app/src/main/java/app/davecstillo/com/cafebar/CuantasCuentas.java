@@ -17,6 +17,8 @@ import android.widget.EditText;
 import com.google.gson.JsonElement;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
 
 
 /**

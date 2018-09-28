@@ -2,7 +2,6 @@ package app.davecstillo.com.cafebar;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import app.davecstillo.com.cafebar.Content.ProductContent;
+import app.davecstillo.com.cafebar.ServerConnection.BackgroundTask;
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
 
 
 /**
@@ -106,7 +105,7 @@ public class cuentas extends BaseFragment {
     public void callList(String path, BaseFragment fragment){
         progressBar.show();
         pContent.clearList();
-        new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(path), (json,exception)->{
+        new BackgroundTask<JsonElement>(()-> httpHandler.instance.getJson(path), (json, exception)->{
             if(exception!=null){
 
             }

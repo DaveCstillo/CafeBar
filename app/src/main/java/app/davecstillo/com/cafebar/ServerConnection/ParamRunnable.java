@@ -1,4 +1,4 @@
-package app.davecstillo.com.cafebar;
+package app.davecstillo.com.cafebar.ServerConnection;
 
 public interface ParamRunnable<P>
 {

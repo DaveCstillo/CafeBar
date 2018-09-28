@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import java.util.HashMap;
 
+import app.davecstillo.com.cafebar.ServerConnection.httpHandler;
+
 public class Images
 {
     public static httpHandler imagesApi;
