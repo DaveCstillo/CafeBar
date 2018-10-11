@@ -69,9 +69,10 @@ public class cuentaInfo {
             this.cantidad = cantidad;
         }
 
-        public String getCantidad() {
-            return String.valueOf(cantidad);
+        public int getCantidad() {
+            return cantidad;
         }
+
 
         public String getExtras() {
             return extras;

@@ -42,7 +42,7 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
     public void onBindViewHolder(pedidosRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.nombre.setText(mValues.get(position).pedido);
-            holder.cantidad.setText(holder.mItem.getCantidad());
+            holder.cantidad.setText(String.valueOf(holder.mItem.getCantidad()));
             holder.precio.setText("Q." +String.valueOf(holder.mItem.precio));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,22 +89,30 @@ public class pedidosRecyclerViewAdapter extends RecyclerView.Adapter<pedidosRecy
 
 
             holder.menos.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
+                    int precio;
                     if(holder.mItem.cantidad>=2) {
                         holder.mItem.removeOne();
-                        holder.cantidad.setText(holder.mItem.getCantidad());
+                        holder.cantidad.setText(String.valueOf(holder.mItem.getCantidad()));
+                        precio = holder.mItem.getPrecio() * holder.mItem.getCantidad();
+                        holder.precio.setText("Q."+String.valueOf(precio));
                     }else {
                         cuentaInfo.clearItem(mValues.get(position));
                         mValues.remove(holder.mItem);
+
                     }
                 }
             });
             holder.mas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int precio;
                     holder.mItem.addOne();
-                    holder.cantidad.setText(holder.mItem.getCantidad());
+                    holder.cantidad.setText(String.valueOf(holder.mItem.getCantidad()));
+                    precio = holder.mItem.getPrecio() * holder.mItem.getCantidad();
+                    holder.precio.setText("Q."+String.valueOf(precio));
                 }
             });
 
