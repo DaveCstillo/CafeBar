@@ -8,7 +8,9 @@ import app.davecstillo.com.cafebar.BaseActivity;
 
 public class BaseFragment extends Fragment {
 
-    public BaseActivity getBaseActivity(){
-        return (BaseActivity)this.getActivity();
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity) this.getActivity();
     }
+
+
 }

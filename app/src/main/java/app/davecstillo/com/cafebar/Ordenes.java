@@ -1,6 +1,7 @@
 package app.davecstillo.com.cafebar;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -101,9 +102,13 @@ public class Ordenes extends BaseFragment {
                     exception.printStackTrace();
                 }
                 if (json != null) {
-                    Log.d("LOCOO", "Ha funcionao");
                     Log.d("Json", json.toString());
-                    revisarCuenta();
+                    try {
+                        continuarSiguiente();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//                    revisarCuenta();
                     appearChange();
                 }
 
@@ -117,7 +122,6 @@ public class Ordenes extends BaseFragment {
                     exception.printStackTrace();
                 }
                 if (json != null) {
-                    Log.d("LOCOO", "Ha funcionao");
                     Log.d("Json", json.toString());
                 }
 
@@ -130,6 +134,14 @@ public class Ordenes extends BaseFragment {
         }else{
 
         }
+    }
+
+    public void continuarSiguiente() throws InterruptedException {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setTitle("Número de cuenta: "+ noCuenta);
+        dialog.show();
+        Thread.sleep(10000);
+        dialog.dismiss();
     }
 
     public void revisarCuenta(){

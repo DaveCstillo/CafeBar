@@ -106,8 +106,11 @@ public class revisiondeCuentaFragment extends DialogFragment {
 
             }
             if(json!=null){
-                for(JsonElement res : json.getAsJsonObject().get("NoMesa").getAsJsonArray()) {
+                for(JsonElement res : json.getAsJsonObject().get("Orden").getAsJsonArray()) {
                     Log.d("Res",res.toString());
+
+
+
                     onInfoFetched(recyclerView);
                 }
 

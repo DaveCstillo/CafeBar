@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,13 +45,15 @@ public class CuantasCuentas extends DialogFragment {
 
     InputMethodManager imm;
 
+    View view;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cuantas_cuentas, container, false);
+        view = inflater.inflate(R.layout.fragment_cuantas_cuentas, container, false);
 
         editable = view.findViewById(R.id.noCuentaTxt);
         ok = view.findViewById(R.id.noCuentaOk);
@@ -62,10 +65,10 @@ public class CuantasCuentas extends DialogFragment {
         ok.setOnClickListener((v) -> {
            textoCuantas = editable.getText();
            cuantas = Integer.parseInt(textoCuantas.toString());
+           hideKeyboard(editable);
 
-           fragment.setCuantasCuentas(cuantas,0);
+            fragment.setCuantasCuentas(cuantas,0);
             Log.d("Cuantas", "seran: " + String.valueOf(cuantas));
-
             llamando();
 
         });
@@ -82,8 +85,9 @@ public class CuantasCuentas extends DialogFragment {
     }
 
 
-    public void hideKeyboard() {
-        imm.toggleSoftInput(0,InputMethodManager.HIDE_IMPLICIT_ONLY);
+    public void hideKeyboard(EditText editText) {
+//        editText.setInputType(InputType.TYPE_NULL);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
 
@@ -131,9 +135,8 @@ public class CuantasCuentas extends DialogFragment {
                         createCategorie(ID,name);
                     }
                 }
-                progressDialog.dismiss();
-                hideKeyboard();
 
+                progressDialog.dismiss();
                 baseActivity.changeFragment(fragment);
 
             }

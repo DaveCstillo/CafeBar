@@ -3,6 +3,7 @@ package app.davecstillo.com.cafebar;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -90,7 +91,8 @@ public class cuentas extends BaseFragment {
         cuantasCuentas.setPath(path);
         cuantasCuentas.setpContent(pContent);
         cuantasCuentas.setProgress(progress);
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        getContext();
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         cuantasCuentas.setIMM(imm);
         cuantasCuentas.show(getBaseActivity().getManager(),"Cuantas Cuentas");
 
